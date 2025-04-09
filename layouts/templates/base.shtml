@@ -23,8 +23,8 @@
         <super>
             <footer>
                 <hr>
-                <h5>SITE UNDER CONSTRUCTION</h5>
-                <img src="$site.asset('under-construction.gif').link()" width=90>
+                <p>Copyright © 2025 LowByteFox, all rights reserved. All opinions on this website are my own, they do not represent anyone in the past, present nor the future.</p>
+                <p>Stickers base made by <a href="https://bsky.app/profile/kozke.bsky.social">Kozke</a>.</p>
             </footer>
     </body>
     <style>

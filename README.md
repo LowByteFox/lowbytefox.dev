@@ -1,5 +1,3 @@
 # lowbytefox.dev
 
-The source code of my website
-
-## Every image in this repository can be used for <ins>personal purposes ONLY and NO IMAGE SHALL BE USED IN ANY AI</ins>
+The source code of my website, pretty much just source-available as this has no LICENSE

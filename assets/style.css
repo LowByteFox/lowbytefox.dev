@@ -81,6 +81,7 @@ ul {
     background-color: rgb(from var(--ambient) R G B / 0.5);
     padding: 0.7rem;
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .title > p {
@@ -90,6 +91,20 @@ ul {
 
 .first {
     margin-top: 1rem;
+}
+
+.hi {
+    width: 128px;
+}
+
+.image-auto-width {
+    max-width: 100%;
+    border: 2px dashed #ffffff;
+    padding: 1rem;
+}
+
+.block > p {
+    margin: 0;
 }
 
 /* b, */

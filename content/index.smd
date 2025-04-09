@@ -7,17 +7,9 @@
 ---
 
 >[]($block.attrs('card'))
->[]($image.siteAsset('wave.png').alt('Sticker').size(0,128))
->Hi
-
-```=html
-<div class="card">
-<img src="/wave.png" alt="Sticker" width=128>
-<span>Hi, I'm LowByteFox, I'm a (primarily) system level programmer, digital artist, content creator and a vtuber. I am (as of now) writing free & open-source software (FOSS) in my free time and have been for about 4 and half years, I also happen to draw from time to time, stream on Twitch as a vtuber (PNGTuber). I also happen to be a furry. My goal is to write simple, user friendly & re-usable software to make the world a better and simpler place.
-</span>
-</div>
-<br>
-```
+>[]($image.siteAsset('wave.png').alt('Sticker').attrs('hi'))
+>
+>Hi, I'm LowByteFox, I'm a (primarily) system level programmer, digital artist, content creator and a vtuber. I am (as of now) writing free & open-source software (FOSS) in my free time and have been for about 4 and half years, I also happen to draw from time to time, stream on Twitch as a vtuber (PNGTuber). I also happen to be a furry. My goal is to write simple, user friendly & re-usable software to make the world a better and simpler place.
 
 ## Interests
 My main interests root in software engineering, I like writing code using `C`, `Zig` & `POSIX shell` scripts. I like UNIX-like operating systems such as `Linux`, `FreeBSD` & `OpenBSD`. I am familiar with [many more](/technologies) technologies. My favorite git service is [Sourcehut](https://sr.ht/) and is a place I push my code to. You can find some projects I haven't transfered yet on my [Codeberg](#links) and [Github](#links).
