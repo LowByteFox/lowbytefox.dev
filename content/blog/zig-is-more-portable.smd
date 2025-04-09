@@ -1,0 +1,9 @@
+---
+.title = "Why is Zig more portable than C?",
+.date = @date("1990-04-09T18:21:04"),
+.author = "LowByteFox",
+.layout = "post.shtml",
+.draft = false,
+--- 
+
+TODO

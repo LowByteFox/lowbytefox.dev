@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head id="head">
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1">
+        <title :text="$site.title"></title>
+        <link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">
+        <link type="text/css" rel="stylesheet" href="$site.asset('highlight.css').link()">
+        <!-- katex -->
+        <link type="text/css" rel="stylesheet" href="$site.asset('katex0.16.21.css').link()">
+        <script defer src="$site.asset('katex0.16.21.js').link()"></script>
+        <script defer src="$site.asset('katex-tag.js').link()"></script>
+        <!-- /katex -->
+        <super>
+    </head>
+    <body id="body">
+        <nav>
+            <a href="$site.page('').link()">Home</a>
+            <a href="$site.page('blog').link()">Blog</a>
+            <a href="$site.page('socials').link()">Socials</a>
+            <a href="$site.page('gallery').link()">Gallery</a>
+        </nav>
+        <super>
+            <footer>
+                <hr>
+                <h5>SITE UNDER CONSTRUCTION</h5>
+                <img src="$site.asset('under-construction.gif').link()" width=90>
+            </footer>
+    </body>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Sono:MONO@0..1&family=Varela+Round&display=swap');
+
+.varela-round-regular {
+    font-family: "Varela Round", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.sono-normal {
+  font-family: "Sono", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "MONO" 1;
+}
+    </style>
+
+</html>
