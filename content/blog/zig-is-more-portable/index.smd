@@ -1,0 +1,61 @@
+---
+.title = "Zig is more portable than C?!",
+.date = @date("2025-04-10T19:32:34"),
+.author = "LowByteFox",
+.layout = "post.shtml",
+.draft = false,
+--- 
+
+"Preposterous" one may say, but in my eyes it's the ability to write portable code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform. Let's dive in!
+
+## OS & CPU Architecture support
+C shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! While something like Zig has to wait for [LLVM](https://llvm.org/) to support it fist and *then* they can start porting the standard library to said target. Zig (as of now) has limited OS and their respective arch support, those are divided into 4 tiers.
+
+### Tier 1
+- All non-experimental features of the language work correctly.
+- The compiler can compile for this target with and without LLVM by using Zig's x86 backend
+- Available libc for cross-compilation
+### Tier 2
+- The standard library has implementations for this target
+- This target is able to produce stack traces on crashes
+### Tier 3
+- Zig can compile code on this target thanks to LLVM
+### Tier 4
+- Zig can generate assembly for this target by relying on LLVM
+- This target may be considered experimental by LLVM
+
+For full target support table, take a look [here](https://ziglang.org/download/0.14.0/release-notes.html#Support-Table)
+
+## Cross-Compilation
+
+### C
+While C has wider support for building a cross compiler for different targets, cross compiling C is pain. Let's say you want to cross compile your C program from Linux to Windows, okay great ... now what? First you need the cross compiler, great, time to install `mingw-w64`! Now to cross-compile all dependencies and the applications itself and it's done! It's simple as that? WRONG!
+
+Using `libdl`? It's missing. Using `mmap`? That's missing too! Oh? Your app is silently failing and `errno` is not being set? Time to dig into winapi! You are testing your app using `wine` and it's failing on a path that contains not allowed "NT"FS characters? Well, `wine` doesn't care about this at all! You got MinGW from the distro maintainers, didn't you?
+
+Are your dependencies compiling fine? Do *they* even support Windows? `#ifdef` here, `#ifdef` there! I'm definitely not going insane or anything hehe!
+
+>[]($block)
+>[Cross Compiling C to Windows]($image.siteAsset('fine.png').alt('This_is_Fine'))
+
+### Zig
+Now let's shift gears and focus on Zig and its cross-compilation! Let's see you want to cross compile your Zig app to Windows again, do you have to install something? No! If you use `build.zig`, it's very simple, just run `zig build -Dtarget=x86_64-windows` and Zig will generate Windows executable! Want to do the same for MacOS? Set the target to `-macos`, it's that simple! However for Apple M chips, you may want to use `aarch64-macos`. For more targets run `zig targets` and you'll get a nice list of available CPU architectures, Operating Systems and ABIs.
+
+Now that's something, isn't it? Not to mention, if something were to fail, it won't silently fail and you will know! While this still won't solve `mmap` issues but it should help you a lot during the development. Thanks to Zig's `comptime`, you can nicely branch out code what it should do on said platform.
+
+And as an added bonus, you can use Zig to cross compile C and C++!
+
+## Standard libraries
+On the C side, there are many `libc` implementations, each one may have minor behavior difference which again results in a lot of `#ifdefs`, you can take a look at comparison of some popular Linux `libc` implementations [here](https://www.etalabs.net/compare_libcs.html). `POSIX` will safe for the most part, but not always and definitely not on *Windows* and not fully with `MinGW`.
+
+With Zig, the story is a bit different, Zig maintainers focus on writing code for its standard library in a way, the function behaves exactly like on any other platform, which reduces the need for more compilation logic, unless you use platform specific APIs, then yes.
+
+
+## Summary
+C is still a very portable programming language, but requires a lot more effort at writing code that's both fast and safe (*pokes at undefined behavior*) and ensuring proper behavior on any platform. This is also why you write unit tests! I know writing them is boring, but this way you can easily ensure a lot of things. Zig is still an alpha software, but is getting better day by day, release by release and it's so interesting to see Zig's growth.
+
+
+### Final note
+This blog post is still not 100% done, I'm sure I'll continue expanding on this topic the more wiser I get and fix possible mistakes I have made.
+
+Hope you had fun time reading, until next time!
