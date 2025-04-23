@@ -6,14 +6,14 @@ Site {
     .assets_dir_path = "assets",
     .static_assets = [
         "robots.txt",
-    "fonts/BerkeleyMono-Medium.woff2",
-    "fonts/BerkeleyMono-Medium-Oblique.woff2",
-    "fonts/BerkeleyMono-Bold.woff2",
-    "fonts/BerkeleyMono-Oblique.woff2",
-    "fonts/README.txt",
-    "fonts/BerkeleyMono-Bold-Oblique.woff2",
-    "fonts/BerkeleyMono-Light.woff2",
-    "fonts/BerkeleyMono-Regular.woff2",
-    "fonts/BerkeleyMono-Light-Oblique.woff2",
+        "favicon.ico",
+        "fonts/BerkeleyMono-Medium.woff2",
+        "fonts/BerkeleyMono-Medium-Oblique.woff2",
+        "fonts/BerkeleyMono-Bold.woff2",
+        "fonts/BerkeleyMono-Oblique.woff2",
+        "fonts/BerkeleyMono-Bold-Oblique.woff2",
+        "fonts/BerkeleyMono-Light.woff2",
+        "fonts/BerkeleyMono-Regular.woff2",
+        "fonts/BerkeleyMono-Light-Oblique.woff2",
     ]
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head id="head">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +16,11 @@
         <meta property="og:title" content="$site.title">
         <meta property="og:description" content="LowByteFox's personal website">
         <meta property="og:url" content="$site.link()">
-        <meta property="og:image" content="$site.asset($page.link().prefix('thumbnails').suffix('thumbnail.png')).link().prefix($site.host_url)">
+        <meta property="og:image" content="$page.asset('thumbnail.png').link().prefix($site.host_url)">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="$site.title">
         <meta name="twitter:description" content="LowByteFox's personal website">
-        <meta name="twitter:image" content="$site.asset($page.link().prefix('thumbnails').suffix('thumbnail.png')).link().prefix($site.host_url)">
+        <meta name="twitter:image" content="$page.asset('thumbnail.png').link().prefix($site.host_url)">
         <meta content="#17a086" data-react-helmet="true" name="theme-color">
         <super>
     </head>
@@ -35,7 +35,7 @@
             <footer>
                 <hr>
                 <p>Copyright © 2025 LowByteFox, all rights reserved. All opinions on this website are my own, they do not represent anyone in the past, present nor the future.</p>
-                <p>Website built with <a href="https://zine-ssg.io/">Zine</a> - The best SSG (biased)</p>
+                <p>Website built with <a href="https://zine-ssg.io/">Zine</a> - Zine rocks</p>
                 <p>Stickers base made by <a href="https://bsky.app/profile/kozke.bsky.social">Kozke</a>.</p>
             </footer>
     </body>

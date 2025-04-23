@@ -7,7 +7,9 @@ import time
 import os
 from urllib.parse import urlparse
 
+
 domain = "http://localhost:1990"
+
 
 def take_screenshot(driver, url, output_folder, path):
     driver.get(url)
@@ -24,17 +26,20 @@ def take_screenshot(driver, url, output_folder, path):
     driver.save_screenshot(screenshot_path)
     print(f"Screenshot saved to: {screenshot_path}")
 
+
+def generate_paths(input_dir):
+    paths = ["/"]
+    for root, dirs, files in os.walk(input_dir):
+        for dir in dirs:
+            url_path = "/" + os.path.relpath(os.path.join(root, dir), input_dir) + "/"
+            paths.append(url_path)
+
+    return paths
+
+
 def main():
-    output_folder = "./assets/thumbnails"
-    paths = [
-        "/",
-        "/blog/",
-        "/blog/rewriting-openpngstudio-1/",
-        "/blog/developing-portable-zig/",
-        "/technologies/",
-        "/socials/",
-        "/gallery/",
-    ]
+    output_folder = "./content/"
+    paths = generate_paths(output_folder)
 
     firefox_options = Options()
     firefox_options.add_argument("--headless")
