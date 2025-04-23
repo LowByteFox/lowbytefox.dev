@@ -1,5 +1,5 @@
 ---
-.title = "Zig is more portable than C?!",
+.title = "Developing portable Zig is easier than C",
 .date = @date("2025-04-10T19:32:34"),
 .author = "LowByteFox",
 .layout = "post.shtml",
@@ -9,12 +9,12 @@
 "Preposterous" one may say, but in my eyes it's the ability to write portable code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform. Let's dive in!
 
 ## OS & CPU Architecture support
-C shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! While something like Zig has to wait for [LLVM](https://llvm.org/) to support it fist and *then* they can start porting the standard library to said target. Zig (as of now) has limited OS and their respective arch support, those are divided into 4 tiers.
+C shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! While something like Zig has to wait for [LLVM](https://llvm.org/) to support it first and *then* they can start porting the standard library to said target. Zig (as of now) has limited OS and their respective arch support, those are divided into 4 tiers.
 
 ### Tier 1
 - All non-experimental features of the language work correctly.
-- The compiler can compile for this target with and without LLVM by using Zig's x86 backend
-- Available libc for cross-compilation
+- The compiler can compile for this target using LLVM, which will become outdated once more native backends are finished
+- Ships libc for cross-compilation
 ### Tier 2
 - The standard library has implementations for this target
 - This target is able to produce stack traces on crashes

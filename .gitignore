@@ -1,3 +1,6 @@
 www/
 public/
 _old/
+assets/fonts/
+assets/thumbnails/
+venv

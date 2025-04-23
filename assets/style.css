@@ -1,5 +1,5 @@
 :root {
-    --page-width: 70rem;
+    --page-width: 70%;
     --background: #161616;
     --secondary: #262626;
     --foreground: #f2f4f8;
@@ -14,13 +14,15 @@ html {
     margin: 0;
     padding: 0;
     color: var(--foreground);
-    font-family: "Varela Round";
+    font-family: "Berkeley Mono";
     font-size: 1.1rem;
     scroll-behavior: smooth;
 }
 
 pre, code {
-    font-family: "Sono";
+    background-color: black;
+    padding: 2px;
+    border-radius: 7px;
 }
 
 body {
@@ -35,19 +37,17 @@ h1, h2, h3, h4, h5 {
 }
 
 nav {
+    display: flex;
     padding: 1.7rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
     background-color: var(--secondary);
+    gap: 2rem;
 }
 
 nav > a {
     color: white;
     font-size: larger;
-}
-
-nav > a:not(:first-of-type) {
-    margin-left: 2rem;
 }
 
 a {
@@ -73,7 +73,7 @@ ul {
 }
 
 figure > img {
-    width: 25rem;
+    width: 35%;
 }
 
 figcaption {
@@ -91,6 +91,26 @@ figcaption {
     padding: 0.7rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+@media (max-width: 724px) {
+    .hi {
+        display: none;
+    }
+
+    figure > img {
+        width: 90% !important;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1079px) {
+    figure > img {
+        width: 50%;
+    }
 }
 
 .title > p {
