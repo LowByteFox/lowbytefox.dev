@@ -16,11 +16,12 @@
         <meta property="og:title" content="$site.title">
         <meta property="og:description" content="LowByteFox's personal website">
         <meta property="og:url" content="$site.link()">
-        <meta property="og:image" content="$site.asset($page.link().prefix('thumbnails').suffix('thumbnail.png')).link()">
+        <meta property="og:image" content="$site.asset($page.link().prefix('thumbnails').suffix('thumbnail.png')).link().prefix($site.host_url)">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="$site.title">
         <meta name="twitter:description" content="LowByteFox's personal website">
-        <meta name="twitter:image" content="https://yourwebsite.com/image.png">
+        <meta name="twitter:image" content="$site.asset($page.link().prefix('thumbnails').suffix('thumbnail.png')).link().prefix($site.host_url)">
+        <meta content="#17a086" data-react-helmet="true" name="theme-color">
         <super>
     </head>
     <body id="body">
