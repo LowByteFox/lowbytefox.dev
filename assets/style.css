@@ -105,6 +105,11 @@ figcaption {
     nav {
         flex-direction: column;
     }
+
+    body {
+        max-width: 95%;
+        width: 95%;
+    }
 }
 
 @media (max-width: 1079px) {
@@ -126,10 +131,13 @@ figcaption {
     width: 128px;
 }
 
-.image-auto-width {
-    max-width: 100%;
+p:has(> .image-auto-width) {
     border: 2px dashed #ffffff;
     padding: 1rem;
+}
+
+.image-auto-width {
+    max-width: 100%;
 }
 
 .block > p {
