@@ -10,18 +10,20 @@
     background: var(--ambient);
 }
 
+* {
+    font-family: "Berkeley Mono";
+}
+
 html {
     margin: 0;
     padding: 0;
     color: var(--foreground);
-    font-family: "Berkeley Mono";
     font-size: 1.1rem;
     scroll-behavior: smooth;
 }
 
 pre, code {
     background-color: black;
-    padding: 2px;
     border-radius: 7px;
 }
 

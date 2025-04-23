@@ -6,53 +6,77 @@
 .draft = false,
 --- 
 
-"Preposterous" one may say, but in my eyes it's the ability to write portable code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform. Let's dive in!
+"Preposterous" one may say, but in my eyes, it's the ability to write portable, it code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform, error handling is also important as each platform has it either similar or a bit different. Let's explore the differences between this kind of portability between C and Zig!
 
 ## OS & CPU Architecture support
-C shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! While something like Zig has to wait for [LLVM](https://llvm.org/) to support it first and *then* they can start porting the standard library to said target. Zig (as of now) has limited OS and their respective arch support, those are divided into 4 tiers.
+C very much shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! The language is simple enough to implement and will allow you to port much more software to your needs. Zig on the other hand has to wait for [LLVM](https://llvm.org/) to support it first and *then* they can possibly start porting the standard library to said target. Zig (as of now) has limited Operating System support and support for their respective architectures, these are split into 4 tiers ranging in support and availability.
 
 ### Tier 1
 - All non-experimental features of the language work correctly.
-- The compiler can compile for this target using LLVM, which will become outdated once more native backends are finished
-- Ships libc for cross-compilation
+- The compiler can compile code for this target using LLVM, which [will become outdated in the future](https://github.com/ziglang/zig/issues/16270).
+    - As of 30 Jun, 2023, the divorce papers from LLVM were signed and the work on x86 backend has started.
+- Ships libc/s for cross-compilation.
 ### Tier 2
-- The standard library has implementations for this target
-- This target is able to produce stack traces on crashes
+- The standard library is implemented for this target.
+- This target is capable of producing debug stack traces during crashes.
 ### Tier 3
-- Zig can compile code on this target thanks to LLVM
+- Zig is capable of compiling code with the help of LLVM.
 ### Tier 4
-- Zig can generate assembly for this target by relying on LLVM
-- This target may be considered experimental by LLVM
+- The compiler is capable to generate assembly for this target by relying on LLVM.
+- This target could very well be considered experimental on LLVM side.
 
-For full target support table, take a look [here](https://ziglang.org/download/0.14.0/release-notes.html#Support-Table)
+You can find table of all supported and known targets by Zig [here](https://ziglang.org/download/0.14.0/release-notes.html#Support-Table) and the Tier system is more deeply described [here](https://ziglang.org/download/0.14.0/release-notes.html#Tier-System).
 
 ## Cross-Compilation
 
 ### C
-While C has wider support for building a cross compiler for different targets, cross compiling C is pain. Let's say you want to cross compile your C program from Linux to Windows, okay great ... now what? First you need the cross compiler, great, time to install `mingw-w64`! Now to cross-compile all dependencies and the applications itself and it's done! It's simple as that? WRONG!
+C has a lot longer list of cross-compilers for different targets, however it's not that simple to configure a cross-compiler correctly, which makes this process a bit annoying and painful.
+I was developing [OpenPNGStudio](https://sr.ht/~lowbytefox/OpenPNGStudio/) on Linux, but decided to add support for Windows (as it would be benefitial for the project as most users use Windows), okay great ... now what?
+First, I needed to install a C cross-compiler targeting x86_64 version of Windows, so I have installed `mingw-w64`.
+As I use [Meson](https://mesonbuild.com/) as my build system, I needed to setup [cross-compilation definition file](https://mesonbuild.com/Cross-compilation.html#cross-compilation).
+Now all that remained to do was to run `meson setup --cross-file x86_64-w64-mingw32.txt build-mingw`, simple right? Not exactly.
+My project was using some dependencies that were using the [CMake](https://cmake.org/) build system ... for which Meson was not overriding CMake's [toolchain files](https://cmake.org/cmake/help/book/mastering-cmake/chapter/Cross%20Compiling%20With%20CMake.html#toolchain-files).
+So I have decided to make a simple [shell script](https://git.sr.ht/~lowbytefox/OpenPNGStudio/tree/main/item/setup_mingw.sh#L4) and just override `CC`, `CXX` and `LD` environment variables (Very bad).
 
-Using `libdl`? It's missing. Using `mmap`? That's missing too! Oh? Your app is silently failing and `errno` is not being set? Time to dig into winapi! You are testing your app using `wine` and it's failing on a path that contains not allowed "NT"FS characters? Well, `wine` doesn't care about this at all! You got MinGW from the distro maintainers, didn't you?
+This wasn't the only trouble I met, since [Raylib](https://www.raylib.com/) does not do *any* prefixing (C doesn't have namespaces) it clashed with `windows.h` header file included by [Libuv](https://libuv.org/).
+There luckily was a helping hand - `raylib_win32`, so I have added it to already messy [`meson.build` file](https://git.sr.ht/~lowbytefox/OpenPNGStudio/tree/main/item/meson.build#L72).
 
-Are your dependencies compiling fine? Do *they* even support Windows? `#ifdef` here, `#ifdef` there! I'm definitely not going insane or anything hehe!
+You'd think `MinGW` is at least a capable toolchain for cross compiling for Windows, but no. It *doesn't* implement many [POSIX](https://en.wikipedia.org/wiki/POSIX) functions, like `mmap` for example, which means [another dependency](https://github.com/boldowa/mman-win32.git) yaaaaaaaaaaaaaaay!! Last time I was working on upcomming release and added support for [lua](https://www.lua.org/) scripting, I encountered yet *another* missing dependency ... `libld`.
+
+Oh and one thing, `errno` is not being set, so nicely call that `GetLastError()`. When I was testing the app using [Wine](https://www.winehq.org/), I have encountered random crashes, given enough debugging and searching, I figured out that I had a file containing a character that was not allowed by "NT"FS. Well, you see ... `wine` doesn't mind those. With a bit of help from someone, I figured out that using `MinGW` shipped by distro maintainers is a big NO.
+
+Another problem with `OpenPNGStudio` was the codebase was growing quickly and the amount of refactoring I would have to do made me start [rewriting the project in Zig](/blog/rewriting-openpngstudio-1/).
+
+Last but not least, `#ifdef` here, `#ifdef` there! I'm definitely not going insane or anything haha!
 
 >[]($block)
 >[Cross Compiling C to Windows]($image.siteAsset('fine.png').alt('This_is_Fine'))
 
 ### Zig
-Now let's shift gears and focus on Zig and its cross-compilation! Let's see you want to cross compile your Zig app to Windows again, do you have to install something? No! If you use `build.zig`, it's very simple, just run `zig build -Dtarget=x86_64-windows` and Zig will generate Windows executable! Want to do the same for MacOS? Set the target to `-macos`, it's that simple! However for Apple M chips, you may want to use `aarch64-macos`. For more targets run `zig targets` and you'll get a nice list of available CPU architectures, Operating Systems and ABIs.
+Now let's shift gears and focus on Zig and its cross-compilation! Let's say you want to cross compile your Zig app to Windows, do you have to install something? No! How so? Zig already comes with `MinGW` pre-installed! If you use `build.zig`, it's very simple, just run `zig build -Dtarget=x86_64-windows` and Zig will compile a Windows executable! Want to do the same for MacOS? Set the target to `-macos`, it's that simple! However for Apple M chips, you may want to use `aarch64-macos`. For more targets run `zig targets` and you'll get a nice list of available CPU architectures, Operating Systems and ABIs.
 
-Now that's something, isn't it? Not to mention, if something were to fail, it won't silently fail and you will know! While this still won't solve `mmap` issues but it should help you a lot during the development. Thanks to Zig's `comptime`, you can nicely branch out code what it should do on said platform.
+Now that's something, isn't it? Not to mention, if something were to fail, it won't silently fail and you will know as Zig has errors as values! While this still won't solve `mmap` issues, but it should help you a lot during the development. Thanks to Zig's `comptime`, you can nicely branch out code what it should do on said platform like so:
+```zig
+const builtin = @import("builtin");
 
-And as an added bonus, you can use Zig to cross compile C and C++!
+switch (builtin.os.tag) {
+    .linux => {},
+    .windows => {},
+    .macos, .ios, .watchos => {}, // Pretty sure there are many more Apple products
+    else => @compileError("Unsupported platform " ++ @tagName(builtin.os.tag)),
+}
+```
+
+And as an added bonus, you can use Zig to cross compile C and C++ with `zig cc` and `zig c++` respectively!
 
 ## Standard libraries
-On the C side, there are many `libc` implementations, each one may have minor behavior difference which again results in a lot of `#ifdefs`, you can take a look at comparison of some popular Linux `libc` implementations [here](https://www.etalabs.net/compare_libcs.html). `POSIX` will safe for the most part, but not always and definitely not on *Windows* and not fully with `MinGW`.
+On the C side, there are many `libc` implementations, each one may have minor behavior difference which again results in a lot of `#ifdefs`, you can take a look at comparison of some popular Linux `libc` implementations [here](https://www.etalabs.net/compare_libcs.html). `POSIX` will save you for the most part, but not always and definitely not on *Windows* and not fully with `MinGW`.
 
 With Zig, the story is a bit different, Zig maintainers focus on writing code for its standard library in a way, the function behaves exactly like on any other platform, which reduces the need for more compilation logic, unless you use platform specific APIs, then yes.
 
 
 ## Summary
-C is still a very portable programming language, but requires a lot more effort at writing code that's both fast and safe (*pokes at undefined behavior*) and ensuring proper behavior on any platform. This is also why you write unit tests! I know writing them is boring, but this way you can easily ensure a lot of things. Zig is still an alpha software, but is getting better day by day, release by release and it's so interesting to see Zig's growth.
+C is still a very portable programming language, but requires a lot more effort than mostly writing code that's both fast and safe (*pokes at undefined behavior*) and ensuring proper behavior on targetted platform. This is also why you write unit tests! I know writing them is boring, but this way you can easily ensure a lot of things. Zig is still an alpha software, but is getting better day by day, release by release and it's so interesting to see Zig grow.
 
 
 ### Final note

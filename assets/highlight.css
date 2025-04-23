@@ -1,37 +1,66 @@
 :root {
-  --light-yellow: #e5c07b;
-  --dark-yellow: #d19a66;
-  --blue: #61afef;
-  --cyan: #52bdff;
-  --light-red: #e06c75;
-  --dark-red: #be5046;
-  --comment-gray: #5c6370;
-  --magenta: #c678dd;
+    --background: #161616;
+
+    --green: #25be6a;
+    --blue: #78a9ff;
+    --magenta: #be95ff;
+    --cyan: #33b1ff;
+
+    --light-gray: #484848;
+    --light-red: #f16da6;
 }
 
 pre {
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
-  padding: 10px 5px;
+    padding: 10px 5px;
 }
 
-code.ziggy {
-  color: var(--cyan);
+pre:has(> code) {
+    background-color: var(--background);
+    border: solid 2px var(--light-gray);
+    border-radius: 0;
+    margin: 0;
 }
 
-code.ziggy .keyword,
-code.ziggy .type {
-  color: var(--light-yellow);
+pre > code {
+    background-color: var(--background);
 }
 
-code.ziggy .string {
-  color: var(--dark-yellow);
+code.zig .keyword {
+    color: var(--magenta);
 }
 
-code.ziggy .numeric.constant {
-  color: var(--magenta);
+code.zig .keyword_conditional {
+    color: var(--magenta);
 }
 
-code.ziggy .function {
-  color: var(--blue);
+code.zig .type {
+    color: var(--magenta);
+}
+
+code.zig .variable_builtin {
+    color: var(--light-red);
+}
+
+code.zig .variable_member {
+    color: var(--blue);
+}
+
+code.zig .comment {
+    color: var(--light-gray);
+}
+
+code.zig .function_builtin {
+    color: var(--cyan);
+}
+
+code.zig .string {
+    color: var(--green);
+}
+
+code.zig .keyword_import {
+    color: var(--magenta);
+}
+
+code.zig .module {
+    color: white;
 }
