@@ -6,7 +6,7 @@
 .draft = false,
 --- 
 
-"Preposterous" one may say, but in my eyes, it's the ability to write portable, it code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform, error handling is also important as each platform has it either similar or a bit different. Let's explore the differences between this kind of portability between C and Zig!
+"Preposterous" one may say, but in my eyes, the ability to write portable code doesn't only mean the ability to compile on multiple platforms, but also the functions you use have the same behavior on each platform, error handling is also important as each platform has it either similar or a bit different. Let's explore the differences between this kind of portability between C and Zig!
 
 ## OS & CPU Architecture support
 C very much shines here, a new CPU arch comes out? It already runs C, new OS? It has C too! The language is simple enough to implement and will allow you to port much more software to your needs. Zig on the other hand has to wait for [LLVM](https://llvm.org/) to support it first and *then* they can possibly start porting the standard library to said target. Zig (as of now) has limited Operating System support and support for their respective architectures, these are split into 4 tiers ranging in support and availability.
