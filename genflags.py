@@ -28,7 +28,7 @@ flags = {
     "transfeminine": "#73deff #ffe2ee #ffb5d6 #ff8dc0 #ffb5d6 #ffe2ee #73deff".split(" "),
     "biromantic": "#8869a5 #d8a7d8 #ffffff #fdb18d #151638".split(" "),
     "genderflux": "#f47694 #f2a2b9 #cecece #7ce0f7 #3ecdf9 #fff48d".split(" "),
-    "pangender": "#fff798 #fff798 #ffebfb #ffffff #ffebfb #fff798 #fff798".split(" "),
+    "pangender": "#fff798 #feddcc #ffebfb #ffffff #ffebfb #feddcc #fff798".split(" "),
     "polyamorous": "#ffffff #fcbf00 #009fe3 #e50051 #340c46".split(" "),
     "sapphic": "#fd8ba8 #fbf2ff #c76bc5 #fdd768 #c76bc5 #fbf2ff #fd8ba8".split(" "),
 }
