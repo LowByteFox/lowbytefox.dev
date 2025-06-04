@@ -10,6 +10,7 @@
         <link type="text/css" rel="stylesheet" href="$site.asset('katex0.16.21.css').link()">
         <script defer src="$site.asset('katex0.16.21.js').link()"></script>
         <script defer src="$site.asset('katex-tag.js').link()"></script>
+        <script defer src="$site.asset('pride.js').link()"></script>
         <!-- /katex -->
         <!-- embeds -->
         <meta name="description" content="LowByteFox's personal website">
@@ -30,6 +31,7 @@
             <a href="$site.page('blog').link()">Blog</a>
             <a href="$site.page('socials').link()">Socials</a>
             <a href="$site.page('gallery').link()">Gallery</a>
+            <a href="" target="_blank">Flag</a>
         </nav>
         <super>
             <footer>

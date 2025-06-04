@@ -18,12 +18,13 @@ I'm currently learning digital art with the help of [Krita](https://krita.org/en
 
 ## Personal Projects
 I specified only projects I liked working on and see something in them, some are unfortunately no longer maintained
-- [Tanzanite](https://codeberg.org/Tanzanite) - Small, with ruby like syntax, compiled programming language
+- [sc](https://github.com/LowByteFox/sc) - Tiny, embeddable Scheme-like language implemented in C
+- [Tanzanite](https://github.com/TanzaniteLang) - Small, with ruby like syntax, compiled programming language
 - [Protogens And Ram](https://lowbytefox.itch.io/protogens-and-ram) - You were locked in a cottage by a toaster, escape by winning against the toaster in a card game of "Protogens and Ram"
-- [OpenPNGStudio](https://sr.ht/~lowbytefox/OpenPNGStudio/) - Create & stream PNGTuber models with ease
-    - [Novacrash](https://git.sr.ht/~lowbytefox/novacrash) - A simple and configurable GUI panic handler for Zig
-    - [Libzev](https://git.sr.ht/~lowbytefox/libzev) - Libxev inspired library using zig-aio
-    - [Xpm.zig](https://git.sr.ht/~lowbytefox/xpm.zig) - XBM (X BitMap) & XPM (X PixMap) parser written in Zig
+- [OpenPNGStudio](https://github.com/LowByteFox/OpenPNGStudio/) - Create & stream PNGTuber models with ease
+    - [Novacrash](https://github.com/LowByteFox/novacrash) - A simple and configurable GUI panic handler for Zig
+    - [Libzev](https://github.com/LowByteFox/libzev) - Libxev inspired library using zig-aio
+    - [Xpm.zig](https://github.com/LowByteFox/xpm.zig) - XBM (X BitMap) & XPM (X PixMap) parser written in Zig
 - [Proot](https://sr.ht/~lowbytefox/proot/) - Protogen themed, toy operating system using the Linux kernel
     - [Protomalloc](https://git.sr.ht/~lowbytefox/protomalloc) - Custom implementation of malloc
     - [Protolibc](https://git.sr.ht/~lowbytefox/protolibc) - Protogen libc implementation based on neatlibc

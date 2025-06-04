@@ -78,8 +78,4 @@ With Zig, the story is a bit different, Zig maintainers focus on writing code fo
 ## Summary
 C is still a very portable programming language, but requires a lot more effort than mostly writing code that's both fast and safe (*pokes at undefined behavior*) and ensuring proper behavior on targetted platform. This is also why you write unit tests! I know writing them is boring, but this way you can easily ensure a lot of things. Zig is still an alpha software, but is getting better day by day, release by release and it's so interesting to see Zig grow.
 
-
-### Final note
-This blog post is still not 100% done, I'm sure I'll continue expanding on this topic the more wiser I get and fix possible mistakes I have made.
-
 Hope you had fun time reading, until next time!

@@ -1,0 +1,9 @@
+---
+.title = "sc - tiny Scheme dialect made in less than 1000 LOC",
+.date = @date("2025-06-04T15:17:05"),
+.author = "LowByteFox",
+.layout = "post.shtml",
+.draft = false,
+--- 
+
+TODO
