@@ -6,12 +6,7 @@
         <title :text="$site.title"></title>
         <link type="text/css" rel="stylesheet" href="$site.asset('style.css').link()">
         <link type="text/css" rel="stylesheet" href="$site.asset('highlight.css').link()">
-        <!-- katex -->
-        <link type="text/css" rel="stylesheet" href="$site.asset('katex0.16.21.css').link()">
-        <script defer src="$site.asset('katex0.16.21.js').link()"></script>
-        <script defer src="$site.asset('katex-tag.js').link()"></script>
         <script defer src="$site.asset('pride.js').link()"></script>
-        <!-- /katex -->
         <!-- embeds -->
         <meta name="description" content="LowByteFox's personal website">
         <meta property="og:title" content="$page.title">
@@ -47,6 +42,7 @@
     font-weight: 400; /* Regular */
     font-style: normal;
     src: url('/fonts/BerkeleyMono-Regular.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -54,6 +50,7 @@
     font-weight: 300; /* Light */
     font-style: normal;
     src: url('/fonts/BerkeleyMono-Light.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -61,6 +58,7 @@
     font-weight: 400; /* Oblique */
     font-style: oblique;
     src: url('/fonts/BerkeleyMono-Oblique.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -68,6 +66,7 @@
     font-weight: 300; /* Light Oblique */
     font-style: oblique;
     src: url('/fonts/BerkeleyMono-Light-Oblique.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -75,6 +74,7 @@
     font-weight: 500; /* Medium */
     font-style: normal;
     src: url('/fonts/BerkeleyMono-Medium.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -82,6 +82,7 @@
     font-weight: 500; /* Medium Oblique */
     font-style: oblique;
     src: url('/fonts/BerkeleyMono-Medium-Oblique.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -89,6 +90,7 @@
     font-weight: 700; /* Bold */
     font-style: normal;
     src: url('/fonts/BerkeleyMono-Bold.woff2') format('woff2');
+	font-display: swap;
 }
 
 @font-face {
@@ -96,6 +98,7 @@
     font-weight: 700; /* Bold Oblique */
     font-style: oblique;
     src: url('/fonts/BerkeleyMono-Bold-Oblique.woff2') format('woff2');
+	font-display: swap;
 }
     </style>
 </html>
