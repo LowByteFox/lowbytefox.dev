@@ -1,0 +1,52 @@
+#!/bin/sh
+
+export WWW_ROOT=$(pwd)
+export WWW_DEST=$(pwd)/www
+GO_LIVE=
+
+err() {
+    echo "$@" >&2
+}
+
+usage() {
+    err "usage: mksite [-h] [-l]"
+    exit 1
+}
+
+live() {
+    cd "$WWW_DEST"
+    python3 -m http.server
+}
+
+while getopts "hl" arg
+do
+    case $arg in
+    h)
+        usage
+        ;;
+    l)
+        GO_LIVE=1
+        ;;
+    ?)
+        usage
+        ;;
+    esac
+done
+
+c3c run
+
+ASSETS=$(find assets -type f)
+
+for asset in $ASSETS; do
+    base_path="${asset#root/}"
+    out_file="$WWW_DEST/${asset#assets/}"
+
+    mkdir -pv "$(dirname $out_file)"
+    if [ ! -f "$out_file" ]; then
+        ln -v "$WWW_ROOT/$asset" "$out_file"
+    fi
+done
+
+if [ $GO_LIVE ]; then
+    live
+fi

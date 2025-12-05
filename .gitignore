@@ -4,3 +4,5 @@ _old/
 assets/fonts/
 thumbnail.png
 venv
+build/
+out/
