@@ -206,3 +206,28 @@ struct Header (HtmlElement) {
 fn usz? Header.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
     => formatter.printf("<h%d %s>%s</h%d>", self.size, attr, self.text,
         self.size);
+
+typedef RawHtml (HtmlElement) = inline String;
+
+fn usz? RawHtml.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
+    => formatter.printf("%s", *(String*) self);
+    
+struct HtmlList (HtmlElement) {
+    bool ordered;
+    List{String} items;
+}
+
+fn usz? HtmlList.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
+{
+    usz res = 0;
+
+    res += formatter.printf(self.ordered ? "<ol>" : "<ul>")!;
+
+    foreach (item : self.items) {
+        res += formatter.printf("<li>%s</li>", item)!;
+    }
+
+    res += formatter.printf(self.ordered ? "</ol>" : "</ul>")!;
+
+    return res;
+}

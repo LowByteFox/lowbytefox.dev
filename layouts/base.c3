@@ -44,3 +44,15 @@ fn Main *apply(Page *page, int page_idx)
 
     return (Main*) div.body.get_ref(1).element;
 }
+
+fn void footer(Page *page)
+{
+    Div *div = (Div*) page.body.get_ref(1).element;
+
+    div.body.push(@html((RawHtml) "<hr>"));
+    div.body.push(@html((Paragraph) {
+    `Copyright &copy; 2025 LowByteFox, all rights reserved. All opinions on
+this website are my own, they do not represent anyone in the past, present nor
+the future.`
+    }));
+}

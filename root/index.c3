@@ -6,8 +6,9 @@ import layouts::base;
 
 fn Page page()
 {
-    Page page = mksite::create_page("LowByteFox");
+    Page page = mksite::create_page("LowByteFox's Website");
     Main *content = base::apply(&page, 0);
+    defer base::footer(&page);
 
     Html spacer = @html((Div) {});
     @pipe(spacer, attr("class", "spacer"));
@@ -30,7 +31,7 @@ world a better and simpler place.`
         `My main interests root from software development, I like writing code
 using C, C3 & POSIX shell scripts. I like UNIX-like operating systems such as
 Linux, FreeBSD & OpenBSD. I am familiar with
-<a target="_blank" href="/technologies">many more</a> technologies. Currently
+<a href="/technologies">many more</a> technologies. Currently
 I push my code to my <a href="#links">Codeberg</a>, repositories that I haven't
 transfered can be found on my <a href="#links">Github</a>.`
     }));

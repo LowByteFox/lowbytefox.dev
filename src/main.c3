@@ -16,6 +16,7 @@ fn int main(String[] args)
     HashMap{String, Page} pages;
     pages.tinit_with_key_values(
         "index.html", root::page(),
+        "technologies/index.html", root::technologies::page(),
     );
 
     Path cwd = path::tcwd()!!;
@@ -33,7 +34,11 @@ fn int main(String[] args)
     pages.@each(; String key, Page page) {
         @pool() {
             Path out = www.tappend(key)!!;
+            Path dirname = out.dirname().to_tpath()!!;
 
+            if (!path::exists(dirname)) {
+                path::mkdir(dirname, true)!!;
+            }
             File f = file::open(out.str_view(), "w")!!;
 
             io::fprintn(&f, @html(page))!!;

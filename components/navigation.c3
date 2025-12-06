@@ -12,12 +12,14 @@ fn Html create(int current_page_idx)
         @html((Anchor) { "/gallery", "Gallery", false })
     });
 
-    Html a = nav.body.get(current_page_idx);
-    @pipe(a,
-        attr("class", "active"),
-    );
+    if (current_page_idx != -1) {
+        Html a = nav.body.get(current_page_idx);
+        @pipe(a,
+            attr("class", "active"),
+        );
 
-    nav.body[current_page_idx] = a;
+        nav.body[current_page_idx] = a;
+    }
 
     return @html(nav);
 }

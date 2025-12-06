@@ -16,11 +16,16 @@
     font-family: "Berkeley Mono";
 }
 
+*::selection {
+    color: var(--foreground)
+}
+
 html {
     margin: 0;
     padding: calc(var(--space-padding) * 2);
     width: 100wv;
     color: var(--foreground);
+    font-size: 1.1rem;
     scroll-behavior: smooth;
     scrollbar-color: var(--ambient) var(--primary);
 }
@@ -34,6 +39,7 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
+    color: var(--ambient);
     margin: 0;
 }
 
@@ -46,6 +52,7 @@ nav {
 nav > a {
     color: var(--foreground);
     padding: 7px;
+    text-decoration: none;
 }
 
 nav > a:first-child {
@@ -62,8 +69,8 @@ nav > a.active {
     border-bottom: 4px solid var(--ambient);
 }
 
-nav > a::selection {
-    color: var(--foreground)
+a {
+    color: var(--ambient);
 }
 
 .content {
@@ -81,10 +88,6 @@ nav > a::selection {
     padding-top: 25px;
 }
 
-a {
-    color: var(--ambient);
-    text-decoration: none;
-}
 
 main {
     padding-top: 7px;
@@ -93,4 +96,13 @@ main {
 p { 
     margin-top: 10px;
     margin-bottom: 0px;
+}
+
+ul {
+    margin-left: 2ch;
+    padding: 0;
+}
+
+ul li::marker {
+  color: var(--ambient);
 }
