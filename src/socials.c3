@@ -46,7 +46,6 @@ aren’t in a mutual server with me.`
         )));
     $endforeach
 
-    content.body.push(@html(links));
-    
+    content.body.push(@html(links)); 
     return page;
 }
