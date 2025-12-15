@@ -17,6 +17,7 @@ fn int main(String[] args)
     pages.tinit_with_key_values(
         "index.html", root::page(),
         "technologies/index.html", root::technologies::page(),
+        "socials/index.html", root::socials::page(),
     );
 
     Path cwd = path::tcwd()!!;

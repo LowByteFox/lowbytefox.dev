@@ -101,8 +101,50 @@ p {
 ul {
     margin-left: 2ch;
     padding: 0;
+    list-style: disc;
 }
 
 ul li::marker {
   color: var(--ambient);
+}
+
+ul li > a {
+    color: var(--foreground);
+}
+
+details {
+    margin-top: 7px;
+    padding: 5px;
+    border: outset 3px var(--foreground);
+}
+
+details summary {
+    display: flex;
+    justify-content: space-between;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary:after {
+    content: '▶';
+    margin-left: 10px; 
+}
+
+details[open] summary:after {
+    transform: rotate(90deg);
+}
+
+details > div {
+    margin-top: 7px;
+    border-top: solid 3px var(--ambient);
+}
+
+details > div > p:nth-child(1) {
+    margin-top: 7px;
+}
+
+details > div > p {
+    margin-top: 0;
 }

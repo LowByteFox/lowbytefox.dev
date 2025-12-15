@@ -55,8 +55,24 @@ macro @pipe(#value, ...) @builtin
 macro attr(String $key, String $value) @builtin =>
     fn void(HtmlAttr *a) => a.set($key, $value);
 
-macro @aclone(value) => allocator::clone(mksite::arena, value);
+macro @aclone(value) @builtin => allocator::clone(mksite::arena, value);
 
+macro Html[] @html_slice(...) @builtin
+{
+    Html[] htmls = allocator::new_array(mksite::arena, Html, $vacount);
+
+    $for var $i = 0; $i < $vacount; $i++:
+        htmls[$i] = @html($vaarg[$i]);
+    $endfor
+
+    return htmls;
+}
+
+macro String @html_str(Html tag) @builtin => @pool()
+{
+    String s = string::tformat("%s", tag);
+    return s.copy(mksite::arena);
+}
 
 /* HTML Tags */
 
@@ -179,6 +195,26 @@ fn usz? Div.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
     return res;
 }
 
+struct StaticCustom (HtmlElement) {
+    String tag;
+    Html[] body;
+}
+
+fn usz? StaticCustom.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
+{
+    usz res = 0;
+
+    res += formatter.printf("<%s %s >\n", self.tag, attr)!;
+
+    foreach (h : self.body) {
+        res += formatter.printf("%s\n", h)!;
+    }
+
+    res += formatter.printf("</%s>", self.tag)!;
+
+    return res;
+}
+
 struct Main (HtmlElement) {
     List{Html} body;
 }
@@ -231,3 +267,14 @@ fn usz? HtmlList.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
 
     return res;
 }
+
+struct Details (HtmlElement) {
+    String summary;
+    Html body;
+}
+
+fn usz? Details.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
+    => formatter.printf(`<details %s>
+<summary>%s</summary>
+%s
+</details>`, attr, self.summary, self.body);
