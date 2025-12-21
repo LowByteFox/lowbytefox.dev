@@ -18,6 +18,7 @@ fn int main(String[] args)
         "index.html", root::page(),
         "technologies/index.html", root::technologies::page(),
         "socials/index.html", root::socials::page(),
+        "blog/index.html", root::blog::page(),
     );
 
     Path cwd = path::tcwd()!!;

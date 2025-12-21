@@ -139,4 +139,3 @@ fn Page page()
 
     return page;
 }
-

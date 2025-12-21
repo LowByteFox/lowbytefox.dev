@@ -121,6 +121,7 @@ details {
 details summary {
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 details summary::-webkit-details-marker {
@@ -130,6 +131,7 @@ details summary::-webkit-details-marker {
 details summary:after {
     content: '▶';
     margin-left: 10px; 
+    transform: rotate(180deg);
 }
 
 details[open] summary:after {
@@ -147,4 +149,46 @@ details > div > p:nth-child(1) {
 
 details > div > p {
     margin-top: 0;
+}
+
+.blog_grades {
+    display: flex;
+    flex-direction: column;
+    margin-top: 7px;
+}
+
+.blog_grades > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.blog_grades > div:nth-child(1) { 
+    border-top: none;
+}
+
+.blog_grades > div { 
+    border-top: solid 3px var(--foreground);
+}
+
+.blog_grades > div > img {
+    max-width: 20%;
+    border-right: solid 3px var(--foreground);
+    aspect-ratio: 1/1;
+}
+
+.blog_grades > div > p:nth-child(1) {
+    min-width: 10ch;
+    border-right: solid 3px var(--foreground);
+}
+
+.blog_grades > div > p {
+    padding: 7px;
+    margin: 0;
+}
+
+
+@media (max-width: 840px) {
+    .blog_grades > div > img {
+        display: none;
+    }
 }
