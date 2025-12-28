@@ -30,16 +30,20 @@ will contain common known issues of LLMs.<br><br>
 
     $foreach $x : $grades:
         Grade $grad = (Grade) $x;
-        {
+        @pool() {
             Div tmp;
             tmp.body.init(mem);
 
-            tmp.body.push(@html((Paragraph) { $grad.type }));
+            Html type = @html((Paragraph) { $grad.type });
+            String temp = $grad.type;
+            type.attr.set("class", temp.to_lower_copy(mksite::arena));
+
+            tmp.body.push(type);
             tmp.body.push(@html((Img) { $grad.name }));
             tmp.body.push(@html((Paragraph) { $grad.desc }));
 
             div.body.push(@html(tmp));
-        }
+        };
     $endforeach
 
     Html div_html = @html(div);
