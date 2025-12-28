@@ -21,6 +21,8 @@ fn int main(String[] args)
         "blog/index.html", root::blog::page(),
     );
 
+    root::blog::populate(&pages);
+
     Path cwd = path::tcwd()!!;
     Path www = cwd.tappend("www")!!;
 

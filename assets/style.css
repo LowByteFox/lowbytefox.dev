@@ -227,6 +227,9 @@ ul .checked, ul .assisted, ul .slop {
     color: var(--foreground);
 }
 
+.blogs > li > a {
+    color: var(--ambient);
+}
 
 @media (max-width: 840px) {
     .blog_grades > div > img {
