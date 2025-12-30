@@ -6,3 +6,4 @@ thumbnail.png
 venv
 build/
 out/
+node_modules/

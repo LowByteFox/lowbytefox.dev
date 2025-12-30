@@ -1,12 +1,14 @@
 module mksite;
 
 import root;
+import libc;
 import std::io, std::io::path, std::io::file, std::collections::map;
 
 Allocator arena;
 
 fn int main(String[] args)
 {
+    libc::srand((uint) libc::time(null));
     char[ushort.max] arena_buffer;
     ArenaAllocator a;
 

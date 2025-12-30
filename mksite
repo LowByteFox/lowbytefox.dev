@@ -18,6 +18,14 @@ live() {
     python3 -m http.server
 }
 
+exists() {
+    if which "$1" 2> /dev/null > /dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
 while getopts "hl" arg
 do
     case $arg in
@@ -33,7 +41,16 @@ do
     esac
 done
 
-c3c run
+SHIKI=""
+
+if exists bun; then
+    SHIKI="-D HIGHLIGHT"
+else
+    echo ":: To enable code highlighting, please install bun js"
+    echo ":: then install shiki: bun add -D shiki"
+fi
+
+c3c $SHIKI run
 
 ASSETS=$(find assets -type f)
 

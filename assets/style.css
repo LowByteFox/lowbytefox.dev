@@ -3,8 +3,11 @@
     --primary: #161616;
     --secondary: #262626;
     --third: #2e2e2e;
+    --fourth: #767676;
+    --code-bg: #060606;
     --foreground: #f3f3f3;
     --ambient: #17a086;
+    --light-gray: #484848;
 
     --color-black: var(--secondary);
     --color-red: #e00000;
@@ -229,6 +232,32 @@ ul .checked, ul .assisted, ul .slop {
 
 .blogs > li > a {
     color: var(--ambient);
+}
+
+code {
+    background-color: var(--code-bg);
+}
+
+h5 {
+    color: var(--fourth);
+}
+
+.codeblock {
+    margin-top: 7px;
+    border: solid 4px var(--light-gray);
+}
+
+.codeblock > p:nth-child(1) {
+    margin: 0;
+    padding: 7px;
+    background-color: var(--secondary);
+}
+
+.codeblock > pre {
+    margin: 0;
+    padding: 7px;
+    overflow: auto;
+    background-color: black;
 }
 
 @media (max-width: 840px) {
