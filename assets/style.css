@@ -50,9 +50,29 @@ body {
     max-width: 80ch;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
     color: var(--ambient);
     margin: 0;
+}
+
+h1 {
+    font-size: 1.90rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.60rem;
+}
+
+h4 {
+    font-size: 1.45rem;
+}
+
+h5 {
+    font-size: 1.20rem;
 }
 
 nav {
@@ -236,9 +256,12 @@ ul .checked, ul .assisted, ul .slop {
 
 code {
     background-color: var(--code-bg);
+    color: var(--ambient);
+    padding: 0 3px 0 3px;
+    border-radius: 5px;
 }
 
-h5 {
+h6 {
     color: var(--fourth);
 }
 
