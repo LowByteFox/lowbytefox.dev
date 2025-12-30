@@ -283,6 +283,11 @@ h6 {
     background-color: black;
 }
 
+main > img {
+    display: block;
+    margin: auto;
+}
+
 @media (max-width: 840px) {
     .blog_grades > div > img {
         display: none;

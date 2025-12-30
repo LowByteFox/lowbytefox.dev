@@ -29,7 +29,7 @@ fn String highlight(String lang, String code) @if($feature(HIGHLIGHT))
 
     SubProcess bun = process::create({"bun", "./shiki/highlight.ts", lang,
         path})!!;
-    bun.join()!!;
+    defer bun.join()!!;
     File stdout = bun.stdout();
 
     return read_fully_ACTUALLY_STREAMING(stdout)!!;
