@@ -288,8 +288,21 @@ main > img {
     margin: auto;
 }
 
+figure {
+    align-self: center;
+    text-align: center;
+    font-style: italic;
+}
+
+figcaption {
+    color: lightgray;
+}
+
 @media (max-width: 840px) {
     .blog_grades > div > img {
         display: none;
+    }
+    figure > img {
+        width: 90% !important;
     }
 }

@@ -15,10 +15,6 @@ struct Project {
     String name, url, description;
 }
 
-// content.body.push(@html((Paragraph) {
-//     ``
-// }));
-
 fn Page page()
 {
     Page page = mksite::create_page("LowByteFox's Website");
@@ -34,20 +30,21 @@ fn Page page()
     content.body.push(@html((Paragraph) {
         `Few years ago, I have discovered a programming language called
 <a href="https://ziglang.org/" target="_blank">Zig</a>, as a C programmer it
-has given me the opportunity to write fast, safer code and the ability to be 
-more productive. "Why not Rust?" you may ask. Well, I don't like Rust that 
+has given me the opportunity to write reliable, fast code while being more 
+productive. "Why not Rust?" you may ask. Well, I don't like Rust that 
 much, that said I <em>won't dislike you</em> for using it! Zig was giving me 
 joy, not to mention <a href="/blog/developing-portable-zig/" target="_blank">the better cross-compilation</a>
 it offered, but there was <em>something</em> missing, something <em>off</em>. 
-Ignoring all the issues, verbosity and breaking changes Zig has over the course of every 
-release, it was C syntax... I simply kept returning to writing C because it was 
-simple and intuitive for my brain to write and use...
+Ignoring all the issues, high verbosity (e.g. when casting)
+and breaking changes present in every new Zig release; it was C syntax, I simply kept 
+returning to writing C because it was simple and intuitive for my brain to write...
 <br><br>
 And then something happened... <a href="https://tsoding.github.io/" target="_blank">Tsoding</a>
 made a stream about <a href="https://c3-lang.org/" target="_blank">C3</a> 
 (<a href="https://www.youtube.com/watch?v=Qzw1m7PweXs" target="_blank">VOD</a>).
-At the time I was a Zig & C fanboy, I wasn't much of a fan of C3, having the need to use <code>fn</code> was a bit strange to me 
-or the enforced code style: e.g. PascalCase for types, SCREAMING_SNAKE_CASE for constants, etc...
+At the time I was a Zig & C fanboy. C3 didn't click with me at first, having the
+need to use <code>fn</code> was a bit strange to me, or the enforced code style: 
+e.g. PascalCase for types, SCREAMING_SNAKE_CASE for constants, etc...
 <br><br>
 <em>Spoiler alert</em>: I changed my mind!`
     }));
@@ -57,27 +54,29 @@ or the enforced code style: e.g. PascalCase for types, SCREAMING_SNAKE_CASE for 
     content.body.push(@html((Header) { 6, "(You thought I was gonna say Kool-Aid? HA! but I'm not an American)" }));
 
     content.body.push(@html((Paragraph) {
-        `I was at the time working on a project called
-<a href="https://github.com/LowByteFox/sc" target="_blank">sc</a>, which was a 
-challenge for me to make a small 
+        `At the time I was working on a project called
+<a href="https://github.com/LowByteFox/sc" target="_blank">sc</a>, my own 
+challenge to make a small 
 <a href="https://en.wikipedia.org/wiki/Scheme_(programming_language)" target="_blank">Scheme</a>-like 
-dialect, I was mostly successful, but it has UB (Undefined Behavior), and at
-the time I thought, what if I give C3 a try and maybe make a proper one using 
-it instead?
+dialect in less than 1000 lines, I was mostly successful, however it had 
+<abbr title="Undefined Behavior">UB</abbr>. Later, I thought about giving C3 a try,
+why wait till it gets better? I'll use it now, possibly contribute and learn something 
+new! And maybe make a new Scheme-like dialect, but not as a challenge.
+So I joined C3's discord server...
 <br><br>
-First steps were rough, especially getting familiar with the language, which 
-is a bit strange considering it's C but better! I had to look at the 
-<a href="https://c3-lang.org/getting-started/" target="_blank">docs</a> a lot 
-(which are apparently dated!) and read the 
+First steps were rough, especially getting familiar with the language. It looks
+like better C, but it was a whole new experience for me! I had to look at the 
+<a href="https://c3-lang.org/getting-started/" target="_blank">documentation</a> a lot 
+(which is apparently dated!) and read the 
 <a href="https://github.com/c3lang/c3c/tree/master/lib/std" target=_blank">source code</a> 
-of the standard library, which went quite okay considering I have learned that 
-from using Zig before!
+of the standard library, which went quite okay considering I learned that 
+ability from Zig!
 <br><br>
-During the time I was getting familiar with the language, I have recieved a ton 
+During the familiarization stage of the language, I got a lot 
 of help from
 <a href="https://github.com/lerno" target="_blank">Christoffer Lerno</a> himself.
 I have learned about the <code>@pool</code> temporary allocator, when to use
-methods and bunch more cool things I got to enjoy about the language.
+methods and bunch more cool things I get to enjoy about the language.
 `
     }));
 
@@ -94,11 +93,11 @@ further detail.`
     content.body.push(@html((Paragraph) {
         `In C3, you can simplify the memory management of temporary allocations 
 using the <code>@pool</code> temporary allocator macro. This macro makes memory 
-management more convenient, as you don't have to manually clean up the temporary 
-memory. Yes, you can do this in C, Zig, etc just fine using an
-<a href="https://en.wikipedia.org/wiki/Region-based_memory_management" target="_blank"><code>Arena Allocator</code></a>,
-but you also need to initialize/free the arena, costing you extra lines.
-<br>
+management more convenient as you don't have to manually manage the temporary 
+allocated memory. Yes, you can do this in C, Zig, etc just fine by using an
+<a href="https://en.wikipedia.org/wiki/Region-based_memory_management" target="_blank"><code>Arena Allocator</code></a>.
+However you also need to initialize/free the arena, costing you few extra lines.
+<br><br>
 Code sample:
 `
     }));
@@ -117,35 +116,34 @@ Code sample:
 
     content.body.push(@html((Paragraph) {
         `In the standard library functions/methods that require an
-<code>Allocator</code> have prefix <code>t</code> which use the temporary 
-allocator instead. In the case of such function/method missing, you can provide 
-the temporary allocator using a global variable <code>tmem</code>. (For a normal
-(libc) allocator you can use <code>mem</code> instead)`
+<code>Allocator</code> use the prefix "<code>t</code>" to symbolize the usage
+of the temporary allocator. If a such function/method were missing, you can provide 
+the temporary allocator using the global variable "<code>tmem</code>". (For a normal
+(libc) allocator you can use the global "<code>mem</code>" instead)`
     }));
 
     content.body.push(spacer);
     content.body.push(@html((Header) { 4, "Flexible Modules" }));
     content.body.push(@html((Paragraph) {
-        `In Zig a file is a module, you cannot freely split it across files...
-you kinda can, but you'll just end up nesting stuff. C3 modules feel like
+        `In Zig a file counts as a module, you cannot freely split it across files.
+Well, yes you can, but you'll just end up nesting them. C3 modules feel kinda like
 C++ namespaces - a module can be extended and split across many files, heck
-you can define multiple modules in a single source file!`}));
+you can define multiple modules in a single source file! Isn't that convenient?`}));
 
     content.body.push(spacer);
     content.body.push(@html((Header) { 5, "Module Declaration" }));
     content.body.push(@html((Paragraph) {
-        `To declare you can use <code>module</code> statement e.g. <code>module foo;</code><br>
-Nesting of modules is supported, <code>::</code> is used as the separator e.g.
-<code>module foo::bar::baz;</code>.`
+        `To declare a module, you can use the <code>module</code> statement, e.g. 
+<code>module foo;</code><br> Nesting of modules is also supported with the 
+<code>::</code> separator, e.g. <code>module foo::bar::baz;</code>.`
     }));
 
     content.body.push(spacer);
     content.body.push(@html((Header) { 5, "Module Imports" }));
     content.body.push(@html((Paragraph) {
-        `To import a module, you can use the <code>import</code> statement e.g.
-<code>import std::collections::list</code>. Imports always recursively import
-sub-modules, which any module will automatically import other modules within
-the same parent module.`
+        `To import a module, you can use the <code>import</code> statement, e.g.
+<code>import std::collections::list</code>. Imports are always recursive, meaning sub-modules
+get imported as well:`
     }));
 
     content.body.push(code::create({
@@ -160,7 +158,7 @@ fn void test() {}`
 `module bar;
 import some;
 
-// import some::foo; <- not needed, as it is a sub module to "some"
+// import some::foo; <- not needed, as it is a sub-module to "some"
 fn void test()
 {
     foo::test();
@@ -170,8 +168,9 @@ fn void test()
 
     content.body.push(@html((Paragraph) {
         `What about types?<br>
-Types in modules are usually imported into the global scope, this can cause
-ambiguities. To prevent this issue, you can use the module path:`
+Types in modules are usually imported into the global scope, cause issues
+such as duplicate types. To prevent these issues, you can use the module path when
+resolving the type:`
     }));
 
     content.body.push(code::create({
@@ -203,7 +202,7 @@ abc::Context c = {};`
     content.body.push(@html((Header) { 5, "Module Limits" }));
 
     content.body.push(@html((Paragraph) {
-        `Module names in C3 are limited only to lowercase characters and underscore,
+        `Module names in C3 are limited only to lowercase characters + underscore 
 and each module name can be up to 31 characters long.`
     }));
 
@@ -211,7 +210,7 @@ and each module name can be up to 31 characters long.`
     content.body.push(@html((Header) { 4, "Flexible Types" }));
     content.body.push(@html((Paragraph) {
         `Unlike Zig, C3 allows you to define macros/methods on types from multiple 
-files/modules & implement interface methods using <code>@dynamic</code> attribute.`
+files/modules & implement interface methods using the <code>@dynamic</code> attribute.`
     }));
 
     content.body.push(spacer);
@@ -256,8 +255,8 @@ fn void example()
     content.body.push(@html((Header) { 4, "Interfaces" }));
     content.body.push(@html((Paragraph) {
         `Interfaces my beloved! Yes yes, Zig has tagged unions for this, but
-those are usually less flexible than interfaces. Interfaces in C3 work in similar
-way <code>any</code> type does, for now think of <code>any</code> as typed 
+those are less flexible than interfaces in general. Interfaces in C3 work in similar
+way <code>any</code> type does, think of <code>any</code> as typed 
 <code>void *</code>.`
     }));
 
@@ -275,7 +274,7 @@ way <code>any</code> type does, for now think of <code>any</code> as typed
     }));
 
     content.body.push(@html((Paragraph) {
-        `To declare a type implements an interface, add it after the type name`
+        `To declare a type that implements an interface, add it after the type name:`
     }));
 
     content.body.push(code::create({
@@ -292,12 +291,13 @@ fn String Baz.myname(&self) @dynamic
     }));
 
     content.body.push(@html((Paragraph) {
-        `This way if type <code>Baz</code> didn't implement method 
-<code>myname</code> it would count as compile time error.<br>
-Interfaces can be implemented on already existing types, you just won't 
-get compile time checks.
+        `This way if type <code>Baz</code> didn't implement the method 
+"<code>myname</code>" it would count as compile time error.<br>
+Interfaces can also be implemented on already existing types, you just won't 
+get the benefits of compile time checks.
 <br><br>
-A method must be declared <code>@dynamic</code> to implement an interface.`
+A method must be declared with the <code>@dynamic</code> attribute
+when implementing a method of an interface.`
     }));
 
     content.body.push(spacer);
@@ -323,9 +323,9 @@ MyName* z = (MyName)&i; // Explicit conversion works and is safe at runtime if i
     content.body.push(spacer);
     content.body.push(@html((Header) { 5, "Calling Dynamic Methods" }));
     content.body.push(@html((Paragraph) {
-        `Dynamic methods are called just like normal methods, you can also call 
-them directly like a normal function, they just offer the benefit of being 
-called from an interface:`
+        `There isn't a big difference between dynamic and normal methods,
+you can call them directly like a normal function too! They just offer the 
+benefit of being callable from an interface:`
     }));
 
     content.body.push(code::create({
@@ -374,8 +374,8 @@ fn void main()
     content.body.push(@html((Paragraph) {
         `Contracts are optional pre- and post-condition checks that the compiler
 can use for runtime checks, optimizations, etc. Be aware the compiler may 
-optimize some away, ensure you are using safe mode so they are checked during 
-runtime.<br>
+optimize some away, ensure you are using safe mode of the compiler so they are 
+checked during runtime.<br><br>
 Code sample:`
     }));
     content.body.push(code::create({
@@ -413,40 +413,42 @@ fn uint check_foo(Foo *foo)
     content.body.push(spacer);
     content.body.push(@html((Header) { 4, "Honorable Mention" }));
     content.body.push(@html((Paragraph) {
-        `Realizing listing all the features would make the blog post exponentially 
-longer, it's already quite long. This isn't the C3 documentation %@#! it!
+        `I'm starting to realize that listing all the features would make the blog post exponentially 
+longer, it's quite long already! This isn't the C3 documentation %@#! it!
 <br><br>
-I'll simply list features I'd like to mention and provide you with a link
-to the documentation page.`
+I'll just list the features I'd like to mention and provide you with a link
+to the documentation page so you can read them during your spare time:`
     }));
 
     HtmlList list;
     list.items.init(mem);
-    list.items.push(`Attributes (<a href="https://c3-lang.org/language-common/attributes/" target="_blank">docs</a>)`);
-    list.items.push(`Generics (<a href="https://c3-lang.org/generic-programming/generics/" target="_blank">docs</a>)`);
-    list.items.push(`Lambdas (<a href="https://c3-lang.org/language-fundamentals/functions/#lambdas" target="_blank">docs</a>)`);
-    list.items.push(`Reflections (<a href="https://c3-lang.org/generic-programming/reflection/" target="_blank">docs</a>)`);
-    list.items.push(`Simpler C Interopt (<a href="https://c3-lang.org/language-common/cinterop/" target="_blank">docs</a>)`);
-    list.items.push(`Strings (<a href="https://c3-lang.org/language-common/strings/" target="_blank">docs</a>)`);
-    list.items.push(`Vectors (<a href="https://c3-lang.org/language-common/vectors/" target="_blank">docs</a>)`);
+    list.items.push(`Attributes (<a href="https://c3-lang.org/language-common/attributes/" target="_blank">documentation</a>)`);
+    list.items.push(`Generics (<a href="https://c3-lang.org/generic-programming/generics/" target="_blank">documentation</a>)`);
+    list.items.push(`Lambdas (<a href="https://c3-lang.org/language-fundamentals/functions/#lambdas" target="_blank">documentation</a>)`);
+    list.items.push(`Macros (<a href="https://c3-lang.org/generic-programming/macros/" target="_blank">documentation</a>)`);
+    list.items.push(`Reflections (<a href="https://c3-lang.org/generic-programming/reflection/" target="_blank">documentation</a>)`);
+    list.items.push(`Simpler C Interopt (<a href="https://c3-lang.org/language-common/cinterop/" target="_blank">documentation</a>)`);
+    list.items.push(`Strings (<a href="https://c3-lang.org/language-common/strings/" target="_blank">documentation</a>)`);
+    list.items.push(`Vectors (<a href="https://c3-lang.org/language-common/vectors/" target="_blank">documentation</a>)`);
     // list.items.push(` (<a href="" target="_blank">docs</a>)`);
 
     content.body.push(@html(list));
 
     content.body.push(@html((Header) { 3, "The Quirks" }));
     content.body.push(@html((Paragraph) {
-        `Just like all good things, C3 isn't all sunshine and rainbows, nono
-... quite a distance from it, but that's normal, not everyone likes the same things!
+        `Just like all the good things, C3 isn't all sunshine and rainbows, and 
+that's okay, not everyone likes the same things, has same thoughts and so on.
 <br><br>
-This a list of things I find strange, don't like about C3.`
+Here is a list of things I find odd and don't like about C3:`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Hello... Enums?" }));
+    content.body.push(@html((Header) { 4, "Hello... C Enums?" }));
     content.body.push(@html((Paragraph) {
-        `C3 does indeed have enums, they just have been re-worked from the ground
-up. Don't get me wrong, they are quite powerful, but by default they don't 
-behave the same like C enums by default, for that you'll have to write a "const enum"`
+        `C3 does have enums, they were re-worked from the ground
+up. Don't get me wrong, they are indeed quite powerful, but by default they don't 
+share the same behavior to C enums. To achieve such behavior, you'll have to 
+write a new type of enum called a "const enum":`
     }));
     content.body.push(code::create({
         "", "c3", 
@@ -473,24 +475,24 @@ fn void main()
     }));
     content.body.push(@html((Paragraph) {
         `This however wasn't always the case, before we got "const enums" we either
-had to rely on global constants (they have to be prefixed with module name) or 
-simply deal with the extra abstraction. Just a slight warning for people who want
-C style enums!
+had to rely on global constants or simply deal with the extra added abstraction.
+Just a slight warning for people who want C style enums!
 <br><br>
-Here is the <a href="https://c3-lang.org/language-overview/types/#enum" target="_blank">docs</a>.`
+Here is the <a href="https://c3-lang.org/language-overview/types/#enum" target="_blank">documentation</a>
+ page to learn more about enums.`
     }));
 
     content.body.push(spacer);
     content.body.push(@html((Header) { 4, "Misleading naming" }));
     content.body.push(@html((Paragraph) {
-        `Okay, I get it, naming is hard! And yes, this is partialy my fault coming from Zig
-, but I'm sure you'll understand some of my struggles when I was learning C3.`
+        `Okay, I get it, naming is hard! And yes, this is also likely my fault coming from Zig
+and a bit of Rust. I'm sure you'll understand some of my struggles when you decide to learn C3 too.`
     }));
     
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Optionals not being optional?" }));
+    content.body.push(@html((Header) { 5, "Optionals are not really Optionals?" }));
     content.body.push(@html((Paragraph) {
-        `<em>"Optionals are a safer alternative to returning <code>-1</code> or 
+        `Citing the documentation: <em>"Optionals are a safer alternative to returning <code>-1</code> or 
 <code>null</code> from a function, when a valid value can’t be returned. An 
 Optional has either a <u>result</u> or is <u>empty</u>. When an Optional is 
 <u>empty</u> it has an <u>Excuse</u> explaining what happened."</em><br>...
@@ -498,23 +500,25 @@ Optional has either a <u>result</u> or is <u>empty</u>. When an Optional is
 <br>...
 <br>...
 <br>...
-<br>ERROR: DOES NOT COMPUTE
+<br>ERROR: Does Not Compute
 <br>Segmentation Fault
 <br>...<br>
 
-Hey Oxy! Can you pull up the definition of the word "optional"? Thank you!<br>
-Oxy: <em>Citing Wikipedia</em><br><br>
-<em>"In programming languages (especially functional programming languages) and 
+Hey Oxy! Can you pull up the definition of the word "optional" in programming context 
+for me? Thank you!<br>
+Oxy:<br><br>
+Citing Wikipedia: <em>"In programming languages (especially functional programming languages) and 
 type theory, an option type or maybe type is a polymorphic type that represents 
 encapsulation of an optional value; e.g., it is used as the return type of 
 functions which may or may not return a meaningful value when they are applied. 
 It consists of a constructor which either is empty (often named <code>None</code> or <code>Nothing</code>), 
-or which encapsulates the original data type A (often written Just A or Some A)."
+or which encapsulates the original data type <code>A</code> (often written <code>Just 
+A</code> or <code>Some A</code>)."
 </em>
 <br><br>
-So this means an optional is <em>something</em> or <em>nothing</em>.
-But not in C3... it's <em>something</em> or <em>something</em>. The <u>Excuse</u>
-is also a value of sorts, not the state of "nothing-ness".<br><br>
+So this means an optional is either <em>something</em> or <em>nothing</em>.
+But that's not a case in C3... it's <em>something</em> or <em>something</em>.
+The <u>Excuse</u> is also kinda a value, not the state of "nothing-ness".<br><br>
 Rust has something similar to C3, it's called 
 <a href="https://doc.rust-lang.org/std/result/enum.Result.html" target="_blank"><code>Result</code></a>, good name Rust!`
     }));
@@ -525,7 +529,7 @@ Rust has something similar to C3, it's called
     content.body.push(@html((Paragraph) {
         `If you are just as confused as I am, that's correct! As I was implementing 
 syntax highlighting for codeblocks on my website, I thought of using <code>io::read_fully</code>
-function from <code>io/<em>stream.c3</em></code> which expects an object implementing 
+function from <code>io/stream.c3</code> which expects an object implementing the
 <code>InStream</code> interface. I got stdout from spawned <code>SupProcess</code> and passed
 it into the function, however I was faced with <code>io::FILE_IS_PIPE</code> fault???
 <br><br>
@@ -552,7 +556,7 @@ macro char[]? read_fully(Allocator allocator, stream)
 
     content.body.push(@html((Paragraph) {
         `This looks mostly fine... until you realize the function <code>available</code> is 
-returning size? Let's look at <code>available</code> first:`
+returning size? Let's look at the <code>available</code> function:`
     }));
     content.body.push(code::create({
         "io/stream.c3", "c3", 
@@ -572,8 +576,8 @@ returning size? Let's look at <code>available</code> first:`
 
     content.body.push(@html((Paragraph) {
         `<em>Sigh</em>, there it is, seeking inside a stream, NOW that's not
-really a problem if your input is a file... let's look at <code>stdout</code>
-method of <code>SubProcess</code>:`
+really an issue if your input stream is a file... not really a case for a pipe,
+then let's have a look at <code>stdout</code> method of <code>SubProcess</code>:`
     }));
     content.body.push(code::create({
         "os/subprocess.c3", "c3", 
@@ -586,7 +590,7 @@ method of <code>SubProcess</code>:`
 
     content.body.push(@html((Paragraph) {
         `And would you look at that? stdout is treated as a file whether it's 
-an actual file or pipe!<br>
+an actual file or a pipe!<br>
 I have already <a href="https://github.com/c3lang/c3c/issues/2699" target="_blank">filed an issue</a> for this.`
     }));
 
@@ -594,19 +598,20 @@ I have already <a href="https://github.com/c3lang/c3c/issues/2699" target="_blan
     content.body.push(@html((Header) { 3, "What about the Scheme-like dialect?" }));
 
     content.body.push(@html((Paragraph) {
-        `No worries, I have worked on it and even streamed it! You can find the 
+        `I have worked on it and even streamed the progress of it! You can find the 
 first stream 
 <a href="https://www.youtube.com/watch?v=OTBM5QWGFW0" target="_blank">here</a>. And if you're 
-interested in the rest of VODs, you can find them
+interested in the rest of the VODs, you can find them all
 <a href="https://www.youtube.com/playlist?list=PLLLYvf-TM_Li9lYxEVWd-WFIA06cWaxtB" target="_blank">here</a>.
-I plan on working on it some more soon!`
+I plan on working on it and streaming some more soon!`
     }));
 
     content.body.push(spacer);
     content.body.push(@html((Header) { 2, "Contributions to C3" }));
     content.body.push(@html((Paragraph) {
-        `As I was slowly starting to get familiar with the language, I have started 
-contributing back to the language, whether it were issues or pull requests`
+        `As I was starting to get familiar with the language, I have started 
+contributing back, whether it were issues, pull requests, projects or sharing
+the good word.`
     }));
 
     content.body.push(spacer);
@@ -648,6 +653,8 @@ contributing back to the language, whether it were issues or pull requests`
             "A simple and configurable GUI panic handler for C3"},
         {"Ev", "https://github.com/OpenPNGStudio/ev",
             "Event loop implementation in C3"},
+        {"lowbytefox.dev", "https://github.com/LowByteFox/lowbytefox.dev",
+            "This website is written in C3"},
         {"Patterngen", "https://github.com/OpenPNGStudio/patterngen",
             "Generate random patterns based on seed"},
         {"Si18n", "https://github.com/OpenPNGStudio/si18n",
@@ -682,16 +689,18 @@ OpenPNGStudio as I'm trying to rewrite the whole project from C to C3!
     content.body.push(@html((Header) { 2, "Summary" }));
 
     content.body.push(@html((Paragraph) {
-        `Zig is a good solid choice for C programmers, it's more battle
+        `Zig is a solid choice for C programmers as it's more battle
 tested, has bigger and stronger community, however don't sleep on C3 either,
-give it a chance! Things are rough now, but even by using it and reporting issues
-you contribute to the project to make it better! C3 community may be small,
-but we strive to help C3 grow, make it more known, fun and simple to use so not 
-C but other developers feel at ease!<br><br>
-Going to end the blog post with XKCD 989 webcomic`
+give it a chance! Things are rough now, but by using it and reporting issues
+you contribute to the project and help it become better! C3 community may be small,
+but we strive to help C3 grow, make it more known, fun and simple to use.<br>`
     }));
 
-    content.body.push(@html((Img) { "https://imgs.xkcd.com/comics/cryogenics.png" }));
+    content.body.push(@html((Figure) {
+        "https://imgs.xkcd.com/comics/cryogenics.png",
+        "XKCD 989"
+    }));
+
     content.body.push(@html((Paragraph) {
         `Hope you had fun time reading, until next time!`
     }));

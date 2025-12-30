@@ -278,3 +278,13 @@ fn usz? Details.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
 <summary>%s</summary>
 %s
 </details>`, attr, self.summary, self.body);
+
+struct Figure (HtmlElement) {
+    String path, figure;
+}
+
+fn usz? Figure.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
+    => formatter.printf(`<figure %s>
+<img src="%s">
+<figcaption>%s</figcaption>
+</figure>`, attr, self.path, self.figure);
