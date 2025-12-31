@@ -540,17 +540,22 @@ Optional has either a <u>result</u> or is <u>empty</u>. When an Optional is
 <br>...<br>
 
 Hey Oxy! Can you pull up the definition of the word "optional" in programming context 
-for me? Thank you!<br>
-Oxy:<br><br>
-Citing Wikipedia: <em>"In programming languages (especially functional programming languages) and 
-type theory, an option type or maybe type is a polymorphic type that represents 
-encapsulation of an optional value; e.g., it is used as the return type of 
-functions which may or may not return a meaningful value when they are applied. 
-It consists of a constructor which either is empty (often named <code>None</code> or <code>Nothing</code>), 
-or which encapsulates the original data type <code>A</code> (often written <code>Just 
+for me? Thank you!<br>`
+    }));
+    content.body.push(@html((Figure) {
+        "/oxy_peek.png",
+        `Citing Wikipedia: <em>"In programming languages (especially functional 
+programming languages) and  type theory, an option type or maybe type is a 
+polymorphic type that represents encapsulation of an optional value; e.g., it 
+is used as the return type of  functions which may or may not return a 
+meaningful value when they are applied. It consists of a constructor which 
+either is empty (often named <code>None</code> or <code>Nothing</code>), or 
+which encapsulates the original data type <code>A</code> (often written <code>Just 
 A</code> or <code>Some A</code>)."
-</em>
-<br><br>
+</em>`
+    }));
+    content.body.push(@html((Paragraph) {
+        `
 So this means an optional is either <em>something</em> or <em>nothing</em>.
 But that's not a case in C3... it's <em>something</em> or <em>something</em>.
 The <u>Excuse</u> is also kinda a value, not the state of "nothing-ness".<br><br>
