@@ -19,7 +19,7 @@ struct Project {
 
 fn Page page(BlogNav nav)
 {
-    Page page = mksite::create_page("LowByteFox's Website");
+    Page page = mksite::create_page(DESC.title);
     Main *content = base::apply(&page, 1);
     defer blog::footer(&page, nav);
 

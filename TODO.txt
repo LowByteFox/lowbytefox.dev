@@ -1,2 +1,1 @@
 - Add image of Oxy searching
-- Improve the rest of pages and add missing blogs with TODO

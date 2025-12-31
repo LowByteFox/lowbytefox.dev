@@ -40,6 +40,8 @@ struct AutoBlog {
 
 AutoBlog[] blogs = {
     { blog::from_zig_to_c3::DESC, &blog::from_zig_to_c3::page },
+    { blog::developing_portable_zig::DESC, &blog::developing_portable_zig::page },
+    { blog::making_own_nuxt::DESC, &blog::making_own_nuxt::page },
 };
 
 fn bool Blog.less(&self, Blog other)
@@ -56,7 +58,7 @@ fn Page page()
 {
     sort::quicksort(blogs);
 
-    Page page = mksite::create_page("LowByteFox's Website");
+    Page page = mksite::create_page("LowByteFox's Blog");
     Main *content = base::apply(&page, 1);
     defer base::footer(&page);
 
@@ -86,7 +88,7 @@ your personal opinions.`
     defer tmp.free();
 
     foreach (&blog : blogs) {
-        String datefmt = string::format(mksite::arena, "%d:%d %d/%d/%d",
+        String datefmt = string::format(mksite::arena, "%02d:%02d %02d/%02d/%04d",
             blog.date.hour, blog.date.minute, blog.date.day, blog.date.month,
             blog.date.year);
 
