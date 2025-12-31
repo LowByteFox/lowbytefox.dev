@@ -4,11 +4,13 @@ import layouts::base;
 import mksite;
 
 import components::code;
+import components::toc;
 
 const Blog DESC = {
     "From Zig to C3: A Journey Into Sanity",
     "/blog/from-zig-to-c3/",
-    {2025, 12, 28, 21, 31}
+    {2025, 12, 28, 21, 31},
+    ORGANIC
 };
 
 struct Project {
@@ -21,11 +23,44 @@ fn Page page()
     Main *content = base::apply(&page, 1);
     defer base::footer(&page);
 
+    Toc toc;
+    toc.init();
+    toc.push(1, DESC.title);
+    toc.push(2, "Drinking C3 Capri-Sun");
+    toc.push(3, "The Features");
+    toc.push(4, "Temporary Allocator");
+    toc.push(4, "Flexible Modules");
+    toc.push(5, "Module Declaration");
+    toc.push(5, "Module Imports");
+    toc.push(5, "Module Limits");
+    toc.push(4, "Flexible Types");
+    toc.push(5, "Methods");
+    toc.push(4, "Interfaces");
+    toc.push(5, "Defining & Implementing an interface");
+    toc.push(5, "Referring to an Interface by Pointer");
+    toc.push(5, "Calling Dynamic Methods");
+    toc.push(4, "Contracts");
+    toc.push(4, "Honorable Mention");
+    toc.push(3, "The Quirks");
+    toc.push(4, "Hello... C Enums?");
+    toc.push(4, "Misleading naming");
+    toc.push(5, "Optionals are not really Optionals?");
+    toc.push(4, "So a pipe is a file");
+    toc.push(3, "What about the Scheme-like dialect?");
+    toc.push(2, "Contributions to C3");
+    toc.push(3, "Pull Requests");
+    toc.push(2, "Projects in C3");
+    toc.push(2, "Summary");
+
     Html spacer = @html((Div) {});
     @pipe(spacer, attr("class", "spacer"));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 1, DESC.title }));
+    Html title = toc.next();
+    title.attr.set("class", DESC.grade.name);
+    content.body.push(title);
+
+    content.body.push(toc.make_toc());
 
     content.body.push(@html((Paragraph) {
         `Few years ago, I have discovered a programming language called
@@ -50,7 +85,7 @@ e.g. PascalCase for types, SCREAMING_SNAKE_CASE for constants, etc...
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 2, "Drinking C3 Capri-Sun" }));
+    content.body.push(toc.next());
     content.body.push(@html((Header) { 6, "(You thought I was gonna say Kool-Aid? HA! but I'm not an American)" }));
 
     content.body.push(@html((Paragraph) {
@@ -81,7 +116,7 @@ methods and bunch more cool things I get to enjoy about the language.
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 3, "The Features" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `Now I'm going to list feature I like about the language with 
@@ -89,7 +124,7 @@ further detail.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Temporary Allocator" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `In C3, you can simplify the memory management of temporary allocations 
 using the <code>@pool</code> temporary allocator macro. This macro makes memory 
@@ -123,7 +158,7 @@ the temporary allocator using the global variable "<code>tmem</code>". (For a no
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Flexible Modules" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `In Zig a file counts as a module, you cannot freely split it across files.
 Well, yes you can, but you'll just end up nesting them. C3 modules feel kinda like
@@ -131,7 +166,7 @@ C++ namespaces - a module can be extended and split across many files, heck
 you can define multiple modules in a single source file! Isn't that convenient?`}));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Module Declaration" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `To declare a module, you can use the <code>module</code> statement, e.g. 
 <code>module foo;</code><br> Nesting of modules is also supported with the 
@@ -139,7 +174,7 @@ you can define multiple modules in a single source file! Isn't that convenient?`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Module Imports" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `To import a module, you can use the <code>import</code> statement, e.g.
 <code>import std::collections::list</code>. Imports are always recursive, meaning sub-modules
@@ -199,7 +234,7 @@ abc::Context c = {};`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Module Limits" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `Module names in C3 are limited only to lowercase characters + underscore 
@@ -207,14 +242,14 @@ and each module name can be up to 31 characters long.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Flexible Types" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Unlike Zig, C3 allows you to define macros/methods on types from multiple 
 files/modules & implement interface methods using the <code>@dynamic</code> attribute.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Methods" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Methods look exactly like functions, but are prefixed with the type name 
 and is invoked using dot syntax:`
@@ -252,7 +287,7 @@ fn void example()
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Interfaces" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Interfaces my beloved! Yes yes, Zig has tagged unions for this, but
 those are less flexible than interfaces in general. Interfaces in C3 work in similar
@@ -261,7 +296,7 @@ way <code>any</code> type does, think of <code>any</code> as typed
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Defining & Implementing an interface" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `An interface can be defined like so:`
     }));
@@ -301,7 +336,7 @@ when implementing a method of an interface.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Referring to an Interface by Pointer" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `An interface, e.g. <code>MyName</code>, can be cast back and forth to 
 <code>any</code>, but only types which implement the interface completely may 
@@ -321,7 +356,7 @@ MyName* z = (MyName)&i; // Explicit conversion works and is safe at runtime if i
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Calling Dynamic Methods" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `There isn't a big difference between dynamic and normal methods,
 you can call them directly like a normal function too! They just offer the 
@@ -370,7 +405,7 @@ fn void main()
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Contracts" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Contracts are optional pre- and post-condition checks that the compiler
 can use for runtime checks, optimizations, etc. Be aware the compiler may 
@@ -411,7 +446,7 @@ fn uint check_foo(Foo *foo)
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Honorable Mention" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `I'm starting to realize that listing all the features would make the blog post exponentially 
 longer, it's quite long already! This isn't the C3 documentation %@#! it!
@@ -434,7 +469,7 @@ to the documentation page so you can read them during your spare time:`
 
     content.body.push(@html(list));
 
-    content.body.push(@html((Header) { 3, "The Quirks" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Just like all the good things, C3 isn't all sunshine and rainbows, and 
 that's okay, not everyone likes the same things, has same thoughts and so on.
@@ -443,7 +478,7 @@ Here is a list of things I find odd and don't like about C3:`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Hello... C Enums?" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `C3 does have enums, they were re-worked from the ground
 up. Don't get me wrong, they are indeed quite powerful, but by default they don't 
@@ -483,14 +518,14 @@ Here is the <a href="https://c3-lang.org/language-overview/types/#enum" target="
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "Misleading naming" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Okay, I get it, naming is hard! And yes, this is also likely my fault coming from Zig
 and a bit of Rust. I'm sure you'll understand some of my struggles when you decide to learn C3 too.`
     }));
     
     content.body.push(spacer);
-    content.body.push(@html((Header) { 5, "Optionals are not really Optionals?" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `Citing the documentation: <em>"Optionals are a safer alternative to returning <code>-1</code> or 
 <code>null</code> from a function, when a valid value can’t be returned. An 
@@ -524,7 +559,7 @@ Rust has something similar to C3, it's called
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 4, "So a pipe is a file" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `If you are just as confused as I am, that's correct! As I was implementing 
@@ -595,7 +630,7 @@ I have already <a href="https://github.com/c3lang/c3c/issues/2699" target="_blan
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 3, "What about the Scheme-like dialect?" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `I have worked on it and even streamed the progress of it! You can find the 
@@ -607,7 +642,7 @@ I plan on working on it and streaming some more soon!`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 2, "Contributions to C3" }));
+    content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `As I was starting to get familiar with the language, I have started 
 contributing back, whether it were issues, pull requests, projects or sharing
@@ -615,7 +650,7 @@ the good word.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 3, "Pull Requests" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `Just to name a few:`
@@ -639,7 +674,7 @@ the good word.`
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 2, "Projects in C3" }));
+    content.body.push(toc.next());
 
     Div project_list;
     project_list.body.init(mem);
@@ -686,7 +721,7 @@ OpenPNGStudio as I'm trying to rewrite the whole project from C to C3!
     }));
 
     content.body.push(spacer);
-    content.body.push(@html((Header) { 2, "Summary" }));
+    content.body.push(toc.next());
 
     content.body.push(@html((Paragraph) {
         `Zig is a solid choice for C programmers as it's more battle

@@ -35,7 +35,6 @@
 html {
     margin: 0;
     padding: calc(var(--space-padding) * 2);
-    width: 100wv;
     color: var(--foreground);
     font-size: 1.1rem;
     scroll-behavior: smooth;
@@ -111,7 +110,7 @@ a {
 }
 
 .banner {
-    width: 50%;
+    width: 100%;
     align-self: center;
     margin-bottom: calc(var(--space-padding) * 2);
 }
@@ -234,6 +233,10 @@ details > div > p {
     color: var(--color-red);
 }
 
+ul .organic::marker {
+    color: var(--color-green) !important;
+}
+
 ul .checked::marker {
     color: var(--color-cyan) !important;
 }
@@ -246,7 +249,7 @@ ul .slop::marker {
     color: var(--color-red) !important;
 }
 
-ul .checked, ul .assisted, ul .slop {
+ul .organic, ul .checked, ul .assisted, ul .slop {
     color: var(--foreground);
 }
 
@@ -298,11 +301,39 @@ figcaption {
     color: lightgray;
 }
 
+hr {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.web_buttons {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 88px);
+    justify-content: space-around;
+}
+
+.toc > div > p > a {
+    color: var(--color-cyan);
+    text-decoration: none;
+}
+
 @media (max-width: 840px) {
     .blog_grades > div > img {
         display: none;
     }
+
+    .web_buttons {
+        grid-template-columns: repeat(4, 88px);
+    }
+
     figure > img {
         width: 90% !important;
+    }
+}
+
+@media (max-width: 420px){
+    .web_buttons {
+        grid-template-columns: repeat(2, 88px);
     }
 }

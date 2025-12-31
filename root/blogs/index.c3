@@ -23,6 +23,7 @@ enum Grade : (String name) {
 struct Blog {
     String title, path;
     Date date;
+    Grade grade;
 }
 
 alias PageGen = fn Page();
@@ -90,6 +91,8 @@ your personal opinions.`
             (RawHtml) "<span> - </span>",
             (Anchor) {blog.path, blog.title, false},
         )});
+
+        item.attr.set("class", blog.grade.name);
 
         tmp.push(item);
     }

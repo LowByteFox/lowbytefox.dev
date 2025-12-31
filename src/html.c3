@@ -93,6 +93,9 @@ fn usz? Page.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="LowByteFox's Personal Website">
+        <meta name="keywords" content="C,C3,UNIX,Low Level,Programming,Coding">
+        <meta name="author" content="LowByteFox">
         <title>%s</title>
 `, self.title)!;
     
