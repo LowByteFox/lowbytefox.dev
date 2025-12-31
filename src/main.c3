@@ -5,11 +5,11 @@ import libc;
 import std::io, std::io::path, std::io::file, std::collections::map;
 
 Allocator arena;
+char[ushort.max * 3] arena_buffer;
 
 fn int main(String[] args)
 {
     libc::srand((uint) libc::time(null));
-    char[ushort.max] arena_buffer;
     ArenaAllocator a;
 
     a.init(&arena_buffer);

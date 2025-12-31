@@ -54,15 +54,18 @@ c3c $SHIKI run
 
 ASSETS=$(find assets -type f)
 
+echo ":: Hardlinking assets"
 for asset in $ASSETS; do
     base_path="${asset#root/}"
     out_file="$WWW_DEST/${asset#assets/}"
 
-    mkdir -pv "$(dirname $out_file)"
+    mkdir -p "$(dirname $out_file)"
     if [ ! -f "$out_file" ]; then
-        ln -v "$WWW_ROOT/$asset" "$out_file"
+        ln "$WWW_ROOT/$asset" "$out_file"
     fi
 done
+
+echo ":: Done outdir=www"
 
 if [ $GO_LIVE ]; then
     live

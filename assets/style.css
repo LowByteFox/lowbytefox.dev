@@ -318,6 +318,24 @@ hr {
     text-decoration: none;
 }
 
+.blog_navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.blog_navigation > a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 45%;
+}
+
+.blog_navigation > .next {
+    direction: rtl;
+}
+
 @media (max-width: 840px) {
     .blog_grades > div > img {
         display: none;

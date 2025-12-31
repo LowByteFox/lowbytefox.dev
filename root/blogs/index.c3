@@ -26,7 +26,12 @@ struct Blog {
     Grade grade;
 }
 
-alias PageGen = fn Page();
+struct BlogNav {
+    String prev, prev_title;
+    String next, next_title;
+}
+
+alias PageGen = fn Page(BlogNav nav);
 
 struct AutoBlog {
     inline Blog blog;
@@ -113,10 +118,64 @@ your personal opinions.`
 
 fn void populate(HashMap{String, Page} *pages)
 {
-    foreach (&blog : blogs) {
+    foreach (i, &blog : blogs) {
         @pool() {
+            BlogNav nav = { "", "", "", "" };
+            if (i > 0) {
+                Blog b = blogs[i - 1];
+                nav.next = b.path;
+                nav.next_title = b.title;
+            }
+
+            if (i + 1 < blogs.len) {
+                Blog b = blogs[i + 1];
+                nav.prev = b.path;
+                nav.prev_title = b.title;
+            }
+
             pages.set(string::tformat("%sindex.html", blog.path[1..]),
-                blog.call());
+                blog.call(nav));
         };
     }
+}
+
+fn void footer(Page *page, BlogNav nav)
+{
+    Div *div = (Div*) page.body.get_ref(1).element;
+
+    Div navigation;
+    navigation.body.init(mem);
+    if (nav.prev.len > 0) {
+        Html a = @html((Anchor) {
+            nav.prev,
+            string::format(mem, "<<< %s", nav.prev_title),
+            false
+        });
+        a.attr.set("title", nav.prev_title);
+
+        navigation.body.push(a);
+    } else {
+        navigation.body.push(@html((RawHtml) "<div></div>"));
+    }
+
+    if (nav.next.len > 0) {
+        Html a = @html((Anchor) {
+            nav.next,
+            string::format(mem, "<<< %s", nav.next_title),
+            false
+        });
+
+        @pipe(&a, attr("class", "next"));
+        a.attr.set("title", nav.next_title);
+
+        navigation.body.push(a);
+    }
+
+    if (nav.prev.len > 0 || nav.next.len > 0) {
+        Html nav_html = @html(navigation);
+        @pipe(&nav_html, attr("class", "blog_navigation"));
+        div.body.push(nav_html);
+    }
+
+    base::footer(page);
 }

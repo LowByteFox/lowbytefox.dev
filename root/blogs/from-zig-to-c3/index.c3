@@ -17,11 +17,11 @@ struct Project {
     String name, url, description;
 }
 
-fn Page page()
+fn Page page(BlogNav nav)
 {
     Page page = mksite::create_page("LowByteFox's Website");
     Main *content = base::apply(&page, 1);
-    defer base::footer(&page);
+    defer blog::footer(&page, nav);
 
     Toc toc;
     toc.init();
@@ -728,7 +728,11 @@ OpenPNGStudio as I'm trying to rewrite the whole project from C to C3!
 tested, has bigger and stronger community, however don't sleep on C3 either,
 give it a chance! Things are rough now, but by using it and reporting issues
 you contribute to the project and help it become better! C3 community may be small,
-but we strive to help C3 grow, make it more known, fun and simple to use.<br>`
+but we strive to help C3 grow, make it more known, fun and simple to use.<br>
+<br>
+Sources:<br>
+- <a href="https://c3-lang.org/getting-started/" target="_blank">C3 Documentation</a><br>
+- <a href="https://en.wikipedia.org/wiki/Option_type" target="_blank">Wikipedia</a><br>`
     }));
 
     content.body.push(@html((Figure) {
