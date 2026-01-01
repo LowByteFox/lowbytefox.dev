@@ -203,7 +203,7 @@ fn void test()
 
     content.body.push(@html((Paragraph) {
         `What about types?<br>
-Types in modules are usually imported into the global scope, cause issues
+Types in modules are usually imported into the global scope, which can cause issues
 such as duplicate types. To prevent these issues, you can use the module path when
 resolving the type:`
     }));
@@ -305,6 +305,11 @@ way <code>any</code> type does, think of <code>any</code> as typed
         "", "c3", 
 `interface MyName {
     fn String myname();
+}
+
+interface VeryOptional {
+    // mark interface method as optional, making it not require the implementation 
+    fn void do_something() @optional;
 }`
     }));
 
@@ -352,7 +357,7 @@ MyName a = &b;          // Valid, Bob implements MyName.
 // MyName c = &d;       // Error, double does not implement MyName.
 MyName c = (MyName)&d;  // Would break at runtime as double doesn't implement MyName
 // MyName z = &i;       // Error, implicit conversion because int doesn't explicitly implement it.
-MyName* z = (MyName)&i; // Explicit conversion works and is safe at runtime if int implements "myname"`
+MyName z = (MyName)&i; // Explicit conversion works and is safe at runtime if int implements "myname"`
     }));
 
     content.body.push(spacer);
@@ -374,7 +379,7 @@ benefit of being callable from an interface:`
 fn void do_something(VeryOptional z)
 {
     if (&z.do_something) {
-        z.do_something(1, null);
+        z.do_something();
     }
 }
 
@@ -449,7 +454,7 @@ fn uint check_foo(Foo *foo)
     content.body.push(toc.next());
     content.body.push(@html((Paragraph) {
         `I'm starting to realize that listing all the features would make the blog post exponentially 
-longer, it's quite long already! This isn't the C3 documentation %@#! it!
+longer, it's quite long already! This isn't the C3 documentation %@#* it!
 <br><br>
 I'll just list the features I'd like to mention and provide you with a link
 to the documentation page so you can read them during your spare time:`

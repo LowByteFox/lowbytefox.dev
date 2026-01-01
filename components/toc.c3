@@ -27,8 +27,18 @@ fn Html Toc.next(&self)
 
     Header header = self.headers[self.iter++];
 
-    Html head = @html(header);
-    head.attr.set("id", to_id(header.text));
+    Div header_div;
+    header_div.body.init(mem);
+
+    String id = to_id(header.text);
+
+    Html head = @html((StaticCustom) {
+        string::format(mem, "h%d", header.size), @html_slice(
+        (RawHtml) header.text,
+        (Anchor) { string::format(mem, "#%s", id), "#", false }
+    )});
+
+    head.attr.set("id", id);
 
     return head;
 }

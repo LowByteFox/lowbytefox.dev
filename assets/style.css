@@ -52,6 +52,30 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: var(--ambient);
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+    font-style: normal;
+    display: none;
+    color: var(--foreground);
+    text-decoration: none;
+}
+
+h1:hover > a,
+h2:hover > a,
+h3:hover > a,
+h4:hover > a,
+h5:hover > a,
+h6:hover > a {
+    display: inline;
 }
 
 h1 {
