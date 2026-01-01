@@ -17,6 +17,10 @@ fn Main *apply(Page *page, int page_idx)
         .href = "/style.css"
     }));
 
+    page.head.push(@html((RawHtml) 
+        `<script src="/oneko.js" defer></script>`
+    ));
+
     Html banner = @html((Img) { "/banner.avif" });
 
     @pipe(
