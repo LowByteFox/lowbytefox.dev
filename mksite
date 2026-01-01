@@ -56,7 +56,6 @@ ASSETS=$(find assets -type f)
 
 echo ":: Hardlinking assets"
 for asset in $ASSETS; do
-    base_path="${asset#root/}"
     out_file="$WWW_DEST/${asset#assets/}"
 
     mkdir -p "$(dirname $out_file)"
@@ -70,3 +69,10 @@ echo ":: Done outdir=www"
 if [ $GO_LIVE ]; then
     live
 fi
+
+THUMBNAILS=$(find root -type f -name "*.png")
+
+for thumb in $THUMBNAILS; do
+    out_file="$WWW_DEST/${thumb#root/}"
+    mv $thumb $out_file
+done
