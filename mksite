@@ -1,0 +1,78 @@
+#!/bin/sh
+
+export WWW_ROOT=$(pwd)
+export WWW_DEST=$(pwd)/www
+GO_LIVE=
+
+err() {
+    echo "$@" >&2
+}
+
+usage() {
+    err "usage: mksite [-h] [-l]"
+    exit 1
+}
+
+live() {
+    cd "$WWW_DEST"
+    python3 -m http.server
+}
+
+exists() {
+    if which "$1" 2> /dev/null > /dev/null; then
+        return 0
+    fi
+
+    return 1
+}
+
+while getopts "hl" arg
+do
+    case $arg in
+    h)
+        usage
+        ;;
+    l)
+        GO_LIVE=1
+        ;;
+    ?)
+        usage
+        ;;
+    esac
+done
+
+SHIKI=""
+
+if exists bun; then
+    SHIKI="-D HIGHLIGHT"
+else
+    echo ":: To enable code highlighting, please install bun js"
+    echo ":: then install shiki: bun add -D shiki"
+fi
+
+c3c $SHIKI run
+
+ASSETS=$(find assets -type f)
+
+echo ":: Hardlinking assets"
+for asset in $ASSETS; do
+    out_file="$WWW_DEST/${asset#assets/}"
+
+    mkdir -p "$(dirname $out_file)"
+    if [ ! -f "$out_file" ]; then
+        ln "$WWW_ROOT/$asset" "$out_file"
+    fi
+done
+
+echo ":: Done outdir=www"
+
+if [ $GO_LIVE ]; then
+    live
+fi
+
+THUMBNAILS=$(find root -type f -name "*.png")
+
+for thumb in $THUMBNAILS; do
+    out_file="$WWW_DEST/${thumb#root/}"
+    mv $thumb $out_file
+done

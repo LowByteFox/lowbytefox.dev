@@ -1,9 +1,22 @@
 :root {
-    --page-width: 70%;
-    --background: #161616;
+    --space-padding: 0.333rem;
+    --primary: #161616;
     --secondary: #262626;
-    --foreground: #f2f4f8;
+    --third: #2e2e2e;
+    --fourth: #767676;
+    --code-bg: #060606;
+    --foreground: #f3f3f3;
     --ambient: #17a086;
+    --light-gray: #484848;
+
+    --color-black: var(--secondary);
+    --color-red: #e00000;
+    --color-green: var(--ambient);
+    --color-yellow: #ffc200;
+    --color-blue: #ff7322;
+    --color-magenta: #ff208f;
+    --color-cyan: #0278ff;
+    --color-white: #fefeff;
 }
 
 ::selection {
@@ -11,190 +24,369 @@
 }
 
 * {
+    box-sizing: border-box;
     font-family: "Berkeley Mono";
+}
+
+*::selection {
+    color: var(--foreground)
 }
 
 html {
     margin: 0;
-    padding: 0;
+    padding: calc(var(--space-padding) * 2);
     color: var(--foreground);
     font-size: 1.1rem;
     scroll-behavior: smooth;
-    scrollbar-color: var(--ambient) var(--background);
-}
-
-pre, code {
-    overflow: auto;
-    background-color: black;
-    border-radius: 7px;
+    scrollbar-color: var(--ambient) var(--primary);
 }
 
 body {
-    background-color: var(--background);
-    max-width: var(--page-width);
-    width: var(--page-width);
+    background-color: var(--primary);
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 80ch;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--ambient);
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 7px;
+}
+
+h1 > a,
+h2 > a,
+h3 > a,
+h4 > a,
+h5 > a,
+h6 > a {
+    font-style: normal;
+    display: none;
+    color: var(--foreground);
+    text-decoration: none;
+}
+
+h1:hover > a,
+h2:hover > a,
+h3:hover > a,
+h4:hover > a,
+h5:hover > a,
+h6:hover > a {
+    display: inline;
+}
+
+h1 {
+    font-size: 1.90rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.60rem;
+}
+
+h4 {
+    font-size: 1.45rem;
+}
+
+h5 {
+    font-size: 1.20rem;
 }
 
 nav {
-    display: flex;
-    padding: 1.7rem;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    background-color: var(--secondary);
-    gap: 2rem;
+    background-color: color-mix(in oklab, var(--primary) 25%, var(--secondary));
+    padding: 7px 0px 7px 0px;
+    border-radius: 7px;
 }
 
 nav > a {
-    color: white;
-    font-size: larger;
-    background-color: var(--secondary);
+    color: var(--foreground);
     padding: 7px;
-    border-radius: 3.5px;
+    text-decoration: none;
 }
 
-nav > a:last-child {
-    display: none;
-    margin-left: auto;
+nav > a:first-child {
+    border-radius: 7px 0px 0px 7px;
+}
+
+nav > a:hover {
+    color: var(--ambient);
+}
+
+nav > a.active {
+    padding-bottom: 3px;
+    background-color: var(--third);
+    border-bottom: 4px solid var(--ambient);
 }
 
 a {
     color: var(--ambient);
-    text-decoration: underscore;
 }
 
-a::selection {
-    color: white;
+.content {
+    border: 4px dashed var(--foreground);
+    padding: var(--space-padding);
 }
 
-a > span::selection {
-    color: white;
+.banner {
+    width: 100%;
+    align-self: center;
+    margin-bottom: calc(var(--space-padding) * 2);
 }
 
-a:hover {
-    color: var(--ambient);
+.spacer {
+    padding-top: 25px;
+}
+
+
+main {
+    padding-top: 7px;
+}
+
+p { 
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 ul {
-    margin-left: 16px;
+    margin-left: 2ch;
     padding: 0;
+    list-style: disc;
 }
 
-figure > img {
-    width: 35%;
+ul li::marker {
+    color: var(--ambient);
+}
+
+ul li > a {
+    color: var(--foreground);
+}
+
+details {
+    margin-top: 7px;
+    padding: 5px;
+    border: outset 3px var(--foreground);
+}
+
+details summary {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary:after {
+    content: '▶';
+    margin-left: 10px; 
+    transform: rotate(180deg);
+}
+
+details[open] summary:after {
+    transform: rotate(90deg);
+}
+
+details > div {
+    margin-top: 7px;
+    border-top: solid 3px var(--ambient);
+}
+
+details > div > p:nth-child(1) {
+    margin-top: 7px;
+}
+
+details > div > p {
+    margin-top: 0;
+}
+
+.blog_grades {
+    display: flex;
+    flex-direction: column;
+    margin-top: 7px;
+}
+
+.blog_grades > div {
+    display: flex;
+    flex-direction: row;
+}
+
+.blog_grades > div:nth-child(1) { 
+    border-top: none;
+}
+
+.blog_grades > div { 
+    border-top: solid 3px var(--foreground);
+}
+
+.blog_grades > div > img {
+    max-width: 20%;
+    border-right: solid 3px var(--foreground);
+    aspect-ratio: 1/1;
+}
+
+.blog_grades > div > p:nth-child(1) {
+    min-width: 10ch;
+    border-right: solid 3px var(--foreground);
+}
+
+.blog_grades > div > p {
+    padding: 7px;
+    margin: 0;
+}
+
+.organic {
+    color: var(--color-green);
+}
+
+.checked {
+    color: var(--color-cyan);
+}
+
+.assisted {
+    color: var(--color-blue);
+}
+
+.slop {
+    color: var(--color-red);
+}
+
+ul .organic::marker {
+    color: var(--color-green) !important;
+}
+
+ul .checked::marker {
+    color: var(--color-cyan) !important;
+}
+
+ul .assisted::marker {
+    color: var(--color-blue) !important;
+}
+
+ul .slop::marker {
+    color: var(--color-red) !important;
+}
+
+ul .organic, ul .checked, ul .assisted, ul .slop {
+    color: var(--foreground);
+}
+
+.blogs > li > a {
+    color: var(--ambient);
+}
+
+code {
+    background-color: var(--code-bg);
+    color: var(--ambient);
+    padding: 0 3px 0 3px;
+    border-radius: 5px;
+}
+
+h6 {
+    color: var(--fourth);
+}
+
+.codeblock {
+    margin-top: 7px;
+    border: solid 4px var(--light-gray);
+}
+
+.codeblock > p:nth-child(1) {
+    margin: 0;
+    padding: 7px;
+    background-color: var(--secondary);
+}
+
+.codeblock > pre {
+    margin: 0;
+    padding: 7px;
+    overflow: auto;
+    background-color: black;
+}
+
+main > img {
+    display: block;
+    margin: auto;
+}
+
+figure {
+    align-self: center;
+    text-align: center;
+    font-style: italic;
 }
 
 figcaption {
     color: lightgray;
 }
 
-.card {
+hr {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.web_buttons {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 88px);
+    justify-content: space-around;
+}
+
+.toc > div > p > a {
+    color: var(--color-cyan);
+    text-decoration: none;
+}
+
+.blog_navigation {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    border: 2px solid var(--ambient);
-    border-radius: 7px;
-    background-color: rgb(from var(--ambient) R G B / 0.5);
-    padding: 0.7rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.blog_navigation > a {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 45%;
+}
+
+.blog_navigation > .next {
+    direction: rtl;
+}
+
+.art {
+    padding: 7px;
+}
+
+.art > img {
+    max-width: 100%;
 }
 
 @media (max-width: 840px) {
-    .hi {
+    .blog_grades > div > img {
         display: none;
+    }
+
+    .web_buttons {
+        grid-template-columns: repeat(4, 88px);
     }
 
     figure > img {
         width: 90% !important;
     }
+}
 
-    nav {
-        flex-direction: column;
-    }
-
-    nav > a {
-        width: fit-content;
-    }
-
-    nav > a:last-child {
-        margin-left: 0;
-    }
-
-    body {
-        max-width: 95%;
-        width: 95%;
+@media (max-width: 420px){
+    .web_buttons {
+        grid-template-columns: repeat(2, 88px);
     }
 }
-
-@media (max-width: 1079px) {
-    figure > img {
-        width: 50%;
-    }
-}
-
-.title > p {
-    padding: 0;
-    margin: 0;
-}
-
-.first {
-    margin-top: 1rem;
-}
-
-.hi {
-    width: 128px;
-}
-
-p:has(> .image-auto-width) {
-    border: 2px dashed #ffffff;
-    padding: 1rem;
-}
-
-.image-auto-width {
-    max-width: 100%;
-}
-
-.block > p {
-    margin: 0;
-}
-
-.pride {
-    background-color: rgb(from var(--secondary) R G B / 0.77) !important;
-}
-
-/* FLAGS */
-.lgbtqia { background: linear-gradient(to bottom, red 0.00%, red 16.67%, orange 16.67%, orange 33.33%, yellow 33.33%, yellow 50.00%, green 50.00%, green 66.67%, blue 66.67%, blue 83.33%, purple 83.33%, purple 100.00%) !important; }
-.transgender { background: linear-gradient(to bottom, #00d1fe 0.00%, #00d1fe 20.00%, #fea3e7 20.00%, #fea3e7 40.00%, #ffffff 40.00%, #ffffff 60.00%, #fea3e7 60.00%, #fea3e7 80.00%, #00d1fe 80.00%, #00d1fe 100.00%) !important; }
-.enby { background: linear-gradient(to bottom, #faf258 0.00%, #faf258 25.00%, #ffffff 25.00%, #ffffff 50.00%, #9261cc 50.00%, #9261cc 75.00%, #2c2c2c 75.00%, #2c2c2c 100.00%) !important; }
-.agender { background: linear-gradient(to bottom, #000000 0.00%, #000000 14.29%, #bec3c9 14.29%, #bec3c9 28.57%, #ffffff 28.57%, #ffffff 42.86%, #b9f484 42.86%, #b9f484 57.14%, #ffffff 57.14%, #ffffff 71.43%, #bec3c9 71.43%, #bec3c9 85.71%, #000000 85.71%, #000000 100.00%) !important; }
-.queer { background: linear-gradient(to bottom, #b57fdd 0.00%, #b57fdd 33.33%, #ffffff 33.33%, #ffffff 66.67%, #49821e 66.67%, #49821e 100.00%) !important; }
-.genderfluid { background: linear-gradient(to bottom, #fe76a2 0.00%, #fe76a2 20.00%, #ffffff 20.00%, #ffffff 40.00%, #bf12d7 40.00%, #bf12d7 60.00%, #000000 60.00%, #000000 80.00%, #303cbe 80.00%, #303cbe 100.00%) !important; }
-.bisexual { background: linear-gradient(to bottom, #fb0074 0.00%, #fb0074 33.33%, #af4e99 33.33%, #af4e99 66.67%, #0135ab 66.67%, #0135ab 100.00%) !important; }
-.cisgender { background: linear-gradient(to bottom, #fb0074 0.00%, #fb0074 50.00%, #0135ab 50.00%, #0135ab 100.00%) !important; }
-.pansexual { background: linear-gradient(to bottom, #ff1b90 0.00%, #ff1b90 33.33%, #ffd900 33.33%, #ffd900 66.67%, #01b2fe 66.67%, #01b2fe 100.00%) !important; }
-.polysexual { background: linear-gradient(to bottom, #f714ba 0.00%, #f714ba 33.33%, #01d66a 33.33%, #01d66a 66.67%, #1594f6 66.67%, #1594f6 100.00%) !important; }
-.omnisexual { background: linear-gradient(to bottom, #fe9ace 0.00%, #fe9ace 20.00%, #ff53bf 20.00%, #ff53bf 40.00%, #200044 40.00%, #200044 60.00%, #6760fe 60.00%, #6760fe 80.00%, #8ea6ff 80.00%, #8ea6ff 100.00%) !important; }
-.omniromantic { background: linear-gradient(to bottom, #fec8e4 0.00%, #fec8e4 20.00%, #fda1db 20.00%, #fda1db 40.00%, #89739a 40.00%, #89739a 60.00%, #aba7fe 60.00%, #aba7fe 80.00%, #bfceff 80.00%, #bfceff 100.00%) !important; }
-.gay_men { background: linear-gradient(to bottom, #078d70 0.00%, #078d70 20.00%, #98e8c1 20.00%, #98e8c1 40.00%, #ffffff 40.00%, #ffffff 60.00%, #7bade2 60.00%, #7bade2 80.00%, #3d1a78 80.00%, #3d1a78 100.00%) !important; }
-.lesbian { background: linear-gradient(to bottom, #d52d00 0.00%, #d52d00 20.00%, #ff9c58 20.00%, #ff9c58 40.00%, #ffffff 40.00%, #ffffff 60.00%, #d560a6 60.00%, #d560a6 80.00%, #a80060 80.00%, #a80060 100.00%) !important; }
-.abrosexual { background: linear-gradient(to bottom, #46d294 0.00%, #46d294 20.00%, #a3e9ca 20.00%, #a3e9ca 40.00%, #ffffff 40.00%, #ffffff 60.00%, #f78bb3 60.00%, #f78bb3 80.00%, #ee1766 80.00%, #ee1766 100.00%) !important; }
-.asexual { background: linear-gradient(to bottom, #000000 0.00%, #000000 25.00%, #a5a5a5 25.00%, #a5a5a5 50.00%, #ffffff 50.00%, #ffffff 75.00%, #960085 75.00%, #960085 100.00%) !important; }
-.aromantic { background: linear-gradient(to bottom, #3ba740 0.00%, #3ba740 20.00%, #a8d47a 20.00%, #a8d47a 40.00%, #ffffff 40.00%, #ffffff 60.00%, #ababab 60.00%, #ababab 80.00%, #000000 80.00%, #000000 100.00%) !important; }
-.aroace { background: linear-gradient(to bottom, #e28c00 0.00%, #e28c00 20.00%, #eccd00 20.00%, #eccd00 40.00%, #ffffff 40.00%, #ffffff 60.00%, #62aedc 60.00%, #62aedc 80.00%, #203856 80.00%, #203856 100.00%) !important; }
-.bigender { background: linear-gradient(to bottom, #c479a2 0.00%, #c479a2 14.29%, #eda5cd 14.29%, #eda5cd 28.57%, #d6c7e8 28.57%, #d6c7e8 42.86%, #ffffff 42.86%, #ffffff 57.14%, #d6c7e8 57.14%, #d6c7e8 71.43%, #9ac7e8 71.43%, #9ac7e8 85.71%, #6d82d1 85.71%, #6d82d1 100.00%) !important; }
-.demigender { background: linear-gradient(to bottom, #7f7f7f 0.00%, #7f7f7f 14.29%, #c4c4c4 14.29%, #c4c4c4 28.57%, #fbff75 28.57%, #fbff75 42.86%, #ffffff 42.86%, #ffffff 57.14%, #fbff75 57.14%, #fbff75 71.43%, #c4c4c4 71.43%, #c4c4c4 85.71%, #7f7f7f 85.71%, #7f7f7f 100.00%) !important; }
-.demiboy { background: linear-gradient(to bottom, #7f7f7f 0.00%, #7f7f7f 14.29%, #c4c4c4 14.29%, #c4c4c4 28.57%, #9dd7ea 28.57%, #9dd7ea 42.86%, #ffffff 42.86%, #ffffff 57.14%, #9dd7ea 57.14%, #9dd7ea 71.43%, #c4c4c4 71.43%, #c4c4c4 85.71%, #7f7f7f 85.71%, #7f7f7f 100.00%) !important; }
-.demigirl { background: linear-gradient(to bottom, #7f7f7f 0.00%, #7f7f7f 14.29%, #c4c4c4 14.29%, #c4c4c4 28.57%, #fdadc8 28.57%, #fdadc8 42.86%, #ffffff 42.86%, #ffffff 57.14%, #fdadc8 57.14%, #fdadc8 71.43%, #c4c4c4 71.43%, #c4c4c4 85.71%, #7f7f7f 85.71%, #7f7f7f 100.00%) !important; }
-.transmasculine { background: linear-gradient(to bottom, #ff8abd 0.00%, #ff8abd 14.29%, #cdf5fe 14.29%, #cdf5fe 28.57%, #9aebff 28.57%, #9aebff 42.86%, #74dfff 42.86%, #74dfff 57.14%, #9aebff 57.14%, #9aebff 71.43%, #cdf5fe 71.43%, #cdf5fe 85.71%, #ff8abd 85.71%, #ff8abd 100.00%) !important; }
-.transfeminine { background: linear-gradient(to bottom, #73deff 0.00%, #73deff 14.29%, #ffe2ee 14.29%, #ffe2ee 28.57%, #ffb5d6 28.57%, #ffb5d6 42.86%, #ff8dc0 42.86%, #ff8dc0 57.14%, #ffb5d6 57.14%, #ffb5d6 71.43%, #ffe2ee 71.43%, #ffe2ee 85.71%, #73deff 85.71%, #73deff 100.00%) !important; }
-.biromantic { background: linear-gradient(to bottom, #8869a5 0.00%, #8869a5 20.00%, #d8a7d8 20.00%, #d8a7d8 40.00%, #ffffff 40.00%, #ffffff 60.00%, #fdb18d 60.00%, #fdb18d 80.00%, #151638 80.00%, #151638 100.00%) !important; }
-.genderflux { background: linear-gradient(to bottom, #f47694 0.00%, #f47694 16.67%, #f2a2b9 16.67%, #f2a2b9 33.33%, #cecece 33.33%, #cecece 50.00%, #7ce0f7 50.00%, #7ce0f7 66.67%, #3ecdf9 66.67%, #3ecdf9 83.33%, #fff48d 83.33%, #fff48d 100.00%) !important; }
-.pangender { background: linear-gradient(to bottom, #fff798 0.00%, #fff798 14.29%, #feddcc 14.29%, #feddcc 28.57%, #ffebfb 28.57%, #ffebfb 42.86%, #ffffff 42.86%, #ffffff 57.14%, #ffebfb 57.14%, #ffebfb 71.43%, #feddcc 71.43%, #feddcc 85.71%, #fff798 85.71%, #fff798 100.00%) !important; }
-.polyamorous { background: linear-gradient(to bottom, #ffffff 0.00%, #ffffff 20.00%, #fcbf00 20.00%, #fcbf00 40.00%, #009fe3 40.00%, #009fe3 60.00%, #e50051 60.00%, #e50051 80.00%, #340c46 80.00%, #340c46 100.00%) !important; }
-.sapphic { background: linear-gradient(to bottom, #fd8ba8 0.00%, #fd8ba8 14.29%, #fbf2ff 14.29%, #fbf2ff 28.57%, #c76bc5 28.57%, #c76bc5 42.86%, #fdd768 42.86%, #fdd768 57.14%, #c76bc5 57.14%, #c76bc5 71.43%, #fbf2ff 71.43%, #fbf2ff 85.71%, #fd8ba8 85.71%, #fd8ba8 100.00%) !important; }

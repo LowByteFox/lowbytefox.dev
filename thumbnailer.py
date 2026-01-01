@@ -4,7 +4,7 @@ import time
 import os
 
 
-domain = "http://localhost:1990"
+domain = "http://localhost:8000"
 
 
 def take_screenshot(driver, url, output_folder, path):
@@ -34,14 +34,14 @@ def generate_paths(input_dir):
 
 
 def main():
-    output_folder = "./content/"
+    output_folder = "root/"
     paths = generate_paths(output_folder)
 
     firefox_options = Options()
     firefox_options.add_argument("--headless")
     firefox_options.add_argument("--width=1920")
     firefox_options.add_argument("--height=1080")
-    firefox_options.binary_location = "/bin/firefox-bin"
+    firefox_options.binary_location = "/bin/firefox"
 
     driver = webdriver.Firefox(options=firefox_options)
 
