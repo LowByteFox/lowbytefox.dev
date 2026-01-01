@@ -6,7 +6,7 @@ import layouts::base;
 
 fn Page page()
 {
-    Page page = mksite::create_page("LowByteFox's Socials");
+    Page page = mksite::create_page("LowByteFox's Socials", "/socials/");
     Main *content = base::apply(&page, 2);
     defer base::footer(&page);
 

@@ -79,7 +79,7 @@ macro String @html_str(Html tag) @builtin => @pool()
 import std::collections::list;
 
 struct Page (HtmlElement) {
-    String title;
+    String title, path;
     List{Html} head;
     List{Html} body;
 }
@@ -96,8 +96,17 @@ fn usz? Page.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
         <meta name="description" content="LowByteFox's Personal Website">
         <meta name="keywords" content="C,C3,UNIX,Low Level,Programming,Coding">
         <meta name="author" content="LowByteFox">
+        <!-- embeds -->
+        <meta property="og:title" content="%s">
+        <meta property="og:description" content="LowByteFox's Personal Website">
+        <meta property="og:url" content="%s">
+        <meta property="og:image" content="https://lowbytefox.dev%sthumbnail.png">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="%s">
+        <meta name="twitter:description" content="LowByteFox's Personal Website">
+        <meta name="twitter:image" content="https://lowbytefox.dev%sthumbnail.png">
         <title>%s</title>
-`, self.title)!;
+`, self.title, self.path, self.path, self.title, self.path, self.title)!;
     
     foreach (h : self.head) {
         res += formatter.printf("        %s\n", h)!;
@@ -117,10 +126,11 @@ fn usz? Page.to_html(&self, HtmlAttr attr, Formatter *formatter) @dynamic
     return res;
 }
 
-fn Page create_page(String title)
+fn Page create_page(String title, String path)
 {
     Page p;
     p.title = title;
+    p.path = path;
     p.head.init(mem);
     p.body.init(mem);
 

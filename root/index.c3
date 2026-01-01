@@ -15,7 +15,7 @@ struct Link {
 
 fn Page page()
 {
-    Page page = mksite::create_page("LowByteFox's Website");
+    Page page = mksite::create_page("LowByteFox's Website", "/");
     Main *content = base::apply(&page, 0);
     defer base::footer(&page);
 

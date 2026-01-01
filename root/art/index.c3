@@ -28,7 +28,7 @@ fn Page page()
             "https://www.etsy.com/shop/YukiinzArt", true}
     };
 
-    Page page = mksite::create_page("LowByteFox's Art Gallery");
+    Page page = mksite::create_page("LowByteFox's Art Gallery", "/art/");
     Main *content = base::apply(&page, 3);
     defer base::footer(&page);
 

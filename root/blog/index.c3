@@ -58,7 +58,7 @@ fn Page page()
 {
     sort::quicksort(blogs);
 
-    Page page = mksite::create_page("LowByteFox's Blog");
+    Page page = mksite::create_page("LowByteFox's Blog", "/blog/");
     Main *content = base::apply(&page, 1);
     defer base::footer(&page);
 
