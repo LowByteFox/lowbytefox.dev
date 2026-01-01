@@ -3,7 +3,8 @@ public/
 _old/
 assets/fonts/
 thumbnail.png
-venv
+venv/
 build/
 out/
+**/thumbnail.png
 node_modules/

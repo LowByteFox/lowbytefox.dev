@@ -55,7 +55,6 @@ fn Page page(BlogNav nav)
     Html spacer = @html((Div) {});
     @pipe(spacer, attr("class", "spacer"));
 
-    content.body.push(spacer);
     Html title = toc.next();
     title.attr.set("class", DESC.grade.name);
     content.body.push(title);

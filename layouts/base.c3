@@ -68,7 +68,6 @@ fn void footer(Page *page)
         {"/buttons/madewithc3.png", "https://c3-lang.org/"},
         {"/buttons/html_learn_it_today.gif", ""},
         {"/buttons/css_is_awesome.gif", ""},
-        {"/buttons/javascript.gif", ""},
         {"/buttons/roly-saynotoweb3.gif", "https://yesterweb.org/no-to-web3"},
         {"/buttons/twopaws.png", ""},
         {"/buttons/toe_beans_now.gif", ""},

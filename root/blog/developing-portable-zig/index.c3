@@ -1,4 +1,4 @@
-module root::blog::making_own_nuxt;
+module root::blog::developing_portable_zig;
 
 import layouts::base;
 import mksite;
@@ -6,9 +6,9 @@ import mksite;
 import components::toc;
 
 const Blog DESC = {
-    "Making own nuxt-like framework with bun",
-    "/blog/making-own-nuxt/",
-    {2023, 6, 10, 20, 6},
+    "Writing portable Zig is easier than C",
+    "/blog/developing-portable-zig/",
+    {2025, 4, 10, 19, 32},
     ORGANIC
 };
 
@@ -25,12 +25,11 @@ fn Page page(BlogNav nav)
     Html spacer = @html((Div) {});
     @pipe(spacer, attr("class", "spacer"));
 
-    content.body.push(spacer);
     Html title = toc.next();
     title.attr.set("class", DESC.grade.name);
     content.body.push(title);
 
-    content.body.push(@html((Paragraph) { "TODO" }));
+    content.body.push(@html((Paragraph) { "TODO, pending rewrite." }));
 
     return page;
 }

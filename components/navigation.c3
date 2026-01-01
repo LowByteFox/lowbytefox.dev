@@ -9,7 +9,7 @@ fn Html create(int current_page_idx)
         @html((Anchor) { "/", "Home", false }),
         @html((Anchor) { "/blog", "Blog", false }),
         @html((Anchor) { "/socials", "Socials", false }),
-        @html((Anchor) { "/gallery", "Gallery", false })
+        @html((Anchor) { "/art", "Art", false })
     });
 
     if (current_page_idx != -1) {

@@ -65,12 +65,11 @@ fn Page page()
     Html spacer = @html((Div) {});
     @pipe(spacer, attr("class", "spacer"));
 
-    content.body.push(spacer);
     content.body.push(@html((Header) { 1, "Blog" }));
 
     content.body.push(@html((Paragraph) {
-        `Here you can find all the blogs I have wrote so far, before you begin
-reading, I want you to read next part.`
+        `Here you can find all the blogs I wrote so far, before you begin
+reading, I want you to read the next part.`
     }));
 
     content.body.push(spacer);

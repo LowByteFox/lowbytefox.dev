@@ -50,6 +50,9 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: var(--ambient);
     margin: 0;
     display: flex;
@@ -358,6 +361,14 @@ hr {
 
 .blog_navigation > .next {
     direction: rtl;
+}
+
+.art {
+    padding: 7px;
+}
+
+.art > img {
+    max-width: 100%;
 }
 
 @media (max-width: 840px) {

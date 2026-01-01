@@ -21,7 +21,7 @@ fn int main(String[] args)
         "technologies/index.html", root::technologies::page(),
         "socials/index.html", root::socials::page(),
         "blog/index.html", root::blog::page(),
-        "gallery/index.html", root::gallery::page(),
+        "art/index.html", root::gallery::page(),
     );
 
     root::blog::populate(&pages);

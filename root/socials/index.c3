@@ -15,9 +15,9 @@ fn Page page()
 
     content.body.push(@html((Header) { 1, "Discord" }));
     content.body.push(@html((Paragraph) {
-        `I primarily use Discord as the main way of communication, my username
-is “lowbytefox”. Keep in mind that Discord may reject friend requests if you
-aren’t in a mutual server with me.`
+        `I primarily use Discord as the main source of communication, my username
+is <code>lowbytefox</code>. Please, be aware that I may not accept your friend
+request unless I am aware of who you are.`
     }));
 
     content.body.push(spacer);
