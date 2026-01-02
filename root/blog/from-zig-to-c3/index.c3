@@ -7,7 +7,7 @@ import components::code;
 import components::toc;
 
 const Blog DESC = {
-    "From Zig to C3: A Journey Into Sanity",
+    "Why I switched away from Zig to C3",
     "/blog/from-zig-to-c3/",
     {2025, 12, 28, 21, 31},
     ORGANIC
